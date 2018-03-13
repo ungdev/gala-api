@@ -1,0 +1,17 @@
+{
+  "name": "apigala",
+  "version": "1.0.0",
+  "description": "Api pour l'application mobile du Gala UTT",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arnaud Dufour",
+  "license": "ISC",
+  "dependencies": {
+    "connect-mariasql": "0.0.3",
+    "express": "^4.16.2",
+    "mariasql": "^0.2.6",
+    "node-mariadb": "^0.1.1"
+  }
+}
