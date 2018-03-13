@@ -8,12 +8,13 @@ var express    = require('express'),
   	app        = express(),
   	bodyParser = require('body-parser');
 var Client = require('mariasql');
-
+var config = require('./config.json')
+console.log(config);
 var c = new Client({
-  host: '127.0.0.1',
-  user: 'arnaud',
-  password: 'azerty',
-  db: 'GALA'
+  host: config['DB_HOST'],
+  user: config['DB_USER'],
+  password: config['DB_PASSWORD'],
+  db: config['DB']
 });
 
 
@@ -29,7 +30,7 @@ app.use(function(req, res, next) {
 });
 
 
-var port = process.env.PORT || 8080;        // set our port
+var port = process.env.PORT || config['server_port'];        // set our port
 
 // ROUTES FOR OUR API
 // =============================================================================
