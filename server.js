@@ -1,23 +1,20 @@
-// server.js
+require('dotenv').config()
 
 // BASE SETUP
 // =============================================================================
 
 // call the packages we need
-var express    = require('express'),
-  	app        = express(),
-  	bodyParser = require('body-parser');
-var Client = require('mariasql');
-var config = require('./config.json')
-console.log(config);
-var c = new Client({
-  host: config['DB_HOST'],
-  user: config['DB_USER'],
-  password: config['DB_PASSWORD'],
-  db: config['DB']
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const Client = require('mariasql');
+
+const c = new Client({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  db: process.env.DB_NAME
 });
-
-
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -30,14 +27,9 @@ app.use(function(req, res, next) {
 });
 
 
-var port = process.env.PORT || config['server_port'];        // set our port
-
 // ROUTES FOR OUR API
 // =============================================================================
-var router = express.Router();              // get an instance of the express Router
-
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-
+const router = express.Router();
 
 router.get('/', function(req, res) {
     var eventsTable;
@@ -47,9 +39,8 @@ router.get('/', function(req, res) {
       if (err)
         throw err;
       eventsTable = rows;
-      res.json(eventsTable); 
-      console.log(rows);
-    });  
+      res.json(eventsTable);
+    });
 });
 
 router.get('/:event_id', function(req, res) {
@@ -61,8 +52,7 @@ router.get('/:event_id', function(req, res) {
       if (err)
         throw err;
       event = rows;
-      res.json(event);   
-      console.log(event);
+      res.json(event);
     });
 
 });
@@ -75,5 +65,4 @@ app.use('/', router);
 
 // START THE SERVER
 // =============================================================================
-app.listen(port);
-console.log('Magic happens on port ' + port);
+app.listen(process.env.SERVER_PORT, _ => console.log(`Magic happens on port ${process.env.SERVER_PORT}`));

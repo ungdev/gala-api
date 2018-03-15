@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "connect-mariasql": "0.0.3",
+    "dotenv": "^5.0.1",
     "express": "^4.16.2",
     "mariasql": "^0.2.6",
     "node-mariadb": "^0.1.1"
