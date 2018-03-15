@@ -1,0 +1,7 @@
+{
+	"DB_HOST":"127.0.0.1",
+	"DB_USER":"arnaud",
+	"DB_PASSWORD":"azerty",
+	"DB":"GALA",
+	"server_port":8080
+}
