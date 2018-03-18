@@ -8,7 +8,6 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const Client = require('mariasql');
-var isConnected = false;
 
 const c = new Client();
 c.connect({
@@ -17,18 +16,7 @@ c.connect({
   password: process.env.DB_PASSWORD,
   db: process.env.DB_NAME
 });
-c.on('connect', function() {
-   console.log('Client connected');
-   isConnected = true;
- })
- .on('error', function(err) {
-   console.log('Client error: ' + err);
-   isConnected = false;
- })
- .on('close', function(hadError) {
-   console.log('Client closed');
-   isConnected = false;
- });
+
 
 console.log(c)
 
@@ -48,7 +36,7 @@ app.use(function(req, res, next) {
 const router = express.Router();
 
 router.get('/', function(req, res) {
-  if(isConnected){
+  if(c.Connected){
     var eventsTable;
     c.query('SELECT * FROM events',
             {},
@@ -66,7 +54,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/:event_id', function(req, res) {
-  if(isConnected){
+  if(c.Connected){
     var event;
     c.query('SELECT * FROM events WHERE id=:id',
             {id : req.params.event_id},
