@@ -8,13 +8,29 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const Client = require('mariasql');
+var isConnected = false;
 
-const c = new Client({
+const c = new Client();
+c.connect({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   db: process.env.DB_NAME
 });
+c.on('connect', function() {
+   console.log('Client connected');
+   isConnected = true;
+ })
+ .on('error', function(err) {
+   console.log('Client error: ' + err);
+   isConnected = false;
+ })
+ .on('close', function(hadError) {
+   console.log('Client closed');
+   isConnected = false;
+ });
+
+console.log(c)
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -32,6 +48,7 @@ app.use(function(req, res, next) {
 const router = express.Router();
 
 router.get('/', function(req, res) {
+  if(isConnected){
     var eventsTable;
     c.query('SELECT * FROM events',
             {},
@@ -41,10 +58,15 @@ router.get('/', function(req, res) {
       eventsTable = rows;
       res.json(eventsTable);
     });
+  }
+  else{
+    res.json({'error':'Not Connected'})
+  }
+    
 });
 
 router.get('/:event_id', function(req, res) {
-
+  if(isConnected){
     var event;
     c.query('SELECT * FROM events WHERE id=:id',
             {id : req.params.event_id},
@@ -54,6 +76,10 @@ router.get('/:event_id', function(req, res) {
       event = rows;
       res.json(event);
     });
+  }
+  else{
+    res.json({'error':'Not Connected'})
+  }
 
 });
 
