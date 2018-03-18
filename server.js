@@ -36,7 +36,7 @@ app.use(function(req, res, next) {
 const router = express.Router();
 
 router.get('/', function(req, res) {
-  if(c.Connected){
+  if(c.connected){
     var eventsTable;
     c.query('SELECT * FROM events',
             {},
@@ -54,7 +54,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/:event_id', function(req, res) {
-  if(c.Connected){
+  if(c.connected){
     var event;
     c.query('SELECT * FROM events WHERE id=:id',
             {id : req.params.event_id},
