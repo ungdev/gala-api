@@ -17,9 +17,6 @@ c.connect({
   db: process.env.DB_NAME
 });
 
-
-console.log(c)
-
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -41,8 +38,10 @@ router.get('/', function(req, res) {
     c.query('SELECT * FROM events',
             {},
             function(err, rows) {
-      if (err)
+      if (err){
+        console.log(err)
         throw err;
+      }
       eventsTable = rows;
       res.json(eventsTable);
     });
@@ -59,8 +58,10 @@ router.get('/:event_id', function(req, res) {
     c.query('SELECT * FROM events WHERE id=:id',
             {id : req.params.event_id},
             function(err, rows) {
-      if (err)
+      if (err){
+        console.log(err)
         throw err;
+      }
       event = rows;
       res.json(event);
     });
