@@ -9,13 +9,12 @@ const app = express();
 const bodyParser = require('body-parser');
 const Client = require('mariasql');
 let isConnected = false;
-var c;
+var c = new Client();
 
 connectToDB(c);
 
 function connectToDB(c){
   try{
-    c = new Client();
     console.log('try')
     c.connect({
       host: process.env.DB_HOST,
