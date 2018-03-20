@@ -65,7 +65,22 @@ router.get('/', function(req, res) {
     });
   }
   else{
-    res.json({'error':'Not Connected'})
+    connectToDB(c)
+    if(c.connected){
+      var eventsTable;
+      c.query('SELECT * FROM events',
+              {},
+              function(err, rows) {
+        if (err){
+          console.log(err)
+        }
+        eventsTable = rows;
+        res.json(eventsTable);
+      });
+    }
+    else{
+      res.json({'error':'Not Connected'})
+    }
   }
     
 });
@@ -85,7 +100,23 @@ router.get('/:event_id', function(req, res) {
     });
   }
   else{
-    res.json({'error':'Not Connected'})
+    connectToDB(c)
+    if(c.connected){
+      var event;
+      c.query('SELECT * FROM events WHERE id=:id',
+              {id : req.params.event_id},
+              function(err, rows) {
+        if (err){
+          console.log(err)
+          //throw err;
+        }
+        event = rows;
+        res.json(event);
+      });
+    }
+    else{
+      res.json({'error':'Not Connected'})
+    }
   }
 
 });
