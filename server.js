@@ -8,14 +8,33 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const Client = require('mariasql');
+let isConnected = false;
+var c;
 
-const c = new Client();
-c.connect({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  db: process.env.DB_NAME
-});
+connectToDB(c);
+
+function connectToDB(c){
+  try{
+    c = new Client();
+    console.log('try')
+    c.connect({
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      db: process.env.DB_NAME
+    });
+  }
+  catch(er){
+    console.log('did not connect to DB')
+    console.log(er)
+  }
+}
+
+process.on('uncaughtException', function(error){
+  console.log(error)
+})
+
+
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
