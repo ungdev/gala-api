@@ -40,7 +40,7 @@ router.get('/', function(req, res) {
             function(err, rows) {
       if (err){
         console.log(err)
-        throw err;
+        //throw err;
       }
       eventsTable = rows;
       res.json(eventsTable);
@@ -60,7 +60,7 @@ router.get('/:event_id', function(req, res) {
             function(err, rows) {
       if (err){
         console.log(err)
-        throw err;
+        //throw err;
       }
       event = rows;
       res.json(event);
