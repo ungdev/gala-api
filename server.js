@@ -82,6 +82,8 @@ router.get('/', function(req, res) {
       res.json({'error':'Not Connected'})
     }
   }
+
+  console.log(c)
     
 });
 
@@ -101,6 +103,7 @@ router.get('/:event_id', function(req, res) {
   }
   else{
     connectToDB(c)
+
     if(c.connected){
       var event;
       c.query('SELECT * FROM events WHERE id=:id',
@@ -118,6 +121,7 @@ router.get('/:event_id', function(req, res) {
       res.json({'error':'Not Connected'})
     }
   }
+  console.log(c)
 
 });
 
