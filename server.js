@@ -10,28 +10,10 @@ const bodyParser = require('body-parser');
 const Client = require('mariasql');
 let isConnected = false;
 var c = new Client();
-
+var time;
 connectToDB(c);
 
-function connectToDB(c){
-  try{
-    console.log('try')
-    c.connect({
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      db: process.env.DB_NAME
-    });
-  }
-  catch(er){
-    console.log('did not connect to DB')
-    console.log(er)
-  }
-}
 
-process.on('uncaughtException', function(error){
-  console.log(error)
-})
 
 
 
@@ -50,62 +32,21 @@ app.use(function(req, res, next) {
 // =============================================================================
 const router = express.Router();
 
-router.get('/', function(req, res) {
-  if(c.connected){
-    var eventsTable;
-    c.query('SELECT * FROM events',
-            {},
-            function(err, rows) {
-      if (err){
-        console.log(err)
-        //throw err;
-      }
-      eventsTable = rows;
-      res.json(eventsTable);
-    });
-  }
-  else{
-    connectToDB(c)
-    if(c.connected){
-      var eventsTable;
-      c.query('SELECT * FROM events',
-              {},
-              function(err, rows) {
-        if (err){
-          console.log(err)
-        }
-        eventsTable = rows;
-        res.json(eventsTable);
-      });
+function queryAllEvents(req, res){
+  var eventsTable;
+  c.query('SELECT * FROM events',
+          {},
+          function(err, rows) {
+    if (err){
+      console.log(err)
     }
-    else{
-      res.json({'error':'Not Connected'})
-    }
-  }
+    eventsTable = rows;
+    res.json(eventsTable);
+  });
+}
 
-  console.log(c)
-    
-});
-
-router.get('/:event_id', function(req, res) {
-  if(c.connected){
+function queryOneEvent(req, res){
     var event;
-    c.query('SELECT * FROM events WHERE id=:id',
-            {id : req.params.event_id},
-            function(err, rows) {
-      if (err){
-        console.log(err)
-        //throw err;
-      }
-      event = rows;
-      res.json(event);
-    });
-  }
-  else{
-    connectToDB(c)
-
-    if(c.connected){
-      var event;
       c.query('SELECT * FROM events WHERE id=:id',
               {id : req.params.event_id},
               function(err, rows) {
@@ -115,13 +56,66 @@ router.get('/:event_id', function(req, res) {
         }
         event = rows;
         res.json(event);
+    });
+}
+
+
+function connectToDB(c){
+  if(!c.connected){
+    try{
+      c.connect({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        db: process.env.DB_NAME
       });
     }
-    else{
-      res.json({'error':'Not Connected'})
+    catch(er){
+      console.log('Did not connect to DB :')
+      console.log(er)
     }
   }
-  console.log(c)
+  
+  clearTimeout(time)
+  time = setTimeout(function(){
+    console.log("timeout : disconnect from BDD")
+    c.end()
+  }, 5000);
+}
+
+process.on('uncaughtException', function(error){
+  console.log(error)
+})
+
+router.get('/', function(req, res) {
+  connectToDB()
+  if(c.connecting){
+    setTimeout(function(req, res){
+      queryAllEvents(req, res);
+    }, 1000);
+  }
+  else if(c.connected){
+    queryAllEvents(req, res)
+  }
+  else{
+    res.json({'error':'Not Connected'})
+  }
+    
+});
+
+router.get('/:event_id', function(req, res) {
+  connectToDB()
+  if(c.connecting){
+    setTimeout(function(req, res){
+      queryOneEvent(req, res);
+    }, 1000);
+  }
+  else if(c.connected){
+    queryOneEvent(req, res)
+  }
+  else{
+    res.json({'error':'Not Connected'})
+  }
 
 });
 
