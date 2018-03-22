@@ -10,7 +10,6 @@ const bodyParser = require('body-parser');
 const Client = require('mariasql');
 let isConnected = false;
 var c = new Client();
-var time;
 connectToDB(c);
 
 
@@ -27,6 +26,10 @@ app.use(function(req, res, next) {
   next();
 });
 
+
+setInterval(function () { //make a request every hour to keep the connection alive
+   sql('SELECT 1');
+}, 1000*60);
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -52,7 +55,6 @@ function queryOneEvent(req, res){
               function(err, rows) {
         if (err){
           console.log(err)
-          //throw err;
         }
         event = rows;
         res.json(event);
@@ -75,12 +77,6 @@ function connectToDB(c){
       console.log(er)
     }
   }
-  
-  clearTimeout(time)
-  time = setTimeout(function(){
-    console.log("timeout : disconnect from BDD")
-    c.end()
-  }, 5000);
 }
 
 process.on('uncaughtException', function(error){
@@ -88,13 +84,7 @@ process.on('uncaughtException', function(error){
 })
 
 router.get('/', function(req, res) {
-  connectToDB()
-  if(c.connecting){
-    setTimeout(function(req, res){
-      queryAllEvents(req, res);
-    }, 1000);
-  }
-  else if(c.connected){
+  if(c.connected){
     queryAllEvents(req, res)
   }
   else{
@@ -104,13 +94,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/:event_id', function(req, res) {
-  connectToDB()
-  if(c.connecting){
-    setTimeout(function(req, res){
-      queryOneEvent(req, res);
-    }, 1000);
-  }
-  else if(c.connected){
+  if(c.connected){
     queryOneEvent(req, res)
   }
   else{
