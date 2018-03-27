@@ -28,8 +28,14 @@ app.use(function(req, res, next) {
 
 
 setInterval(function () { //make a request every hour to keep the connection alive
-   sql('SELECT 1');
-}, 1000*60);
+   c.query('SELECT 1',
+          {},
+          function(err, rows) {
+    if (err){
+      console.log(err)
+    }
+  });
+}, 1000*10);
 
 // ROUTES FOR OUR API
 // =============================================================================
