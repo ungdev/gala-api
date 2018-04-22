@@ -27,7 +27,8 @@ app.use(function(req, res, next) {
 });
 
 
-setInterval(function () { //make a request every hour to keep the connection alive
+setInterval(function () { 
+  connectToDB(c);
    c.query('SELECT 1',
           {},
           function(err, rows) {
@@ -75,7 +76,8 @@ function connectToDB(c){
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
-        db: process.env.DB_NAME
+        db: process.env.DB_NAME,
+        charset: 'utf8mb4'
       });
     }
     catch(er){
