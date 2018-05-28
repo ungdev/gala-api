@@ -12,7 +12,10 @@
     "connect-mariasql": "0.0.3",
     "dotenv": "^5.0.1",
     "express": "^4.16.2",
+    "https": "^1.0.0",
     "mariasql": "^0.2.6",
-    "node-mariadb": "^0.1.1"
+    "node-mariadb": "^0.1.1",
+    "npm": "^6.1.0",
+    "request": "^2.87.0"
   }
 }

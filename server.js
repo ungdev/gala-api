@@ -10,6 +10,8 @@ const bodyParser = require('body-parser');
 const Client = require('mariasql');
 let isConnected = false;
 var c = new Client();
+var http = require('http');
+const request = require('request');
 connectToDB(c);
 
 
@@ -109,6 +111,21 @@ router.get('/:event_id', function(req, res) {
     res.json({'error':'Not Connected'})
   }
 
+});
+
+router.get('/ticket/code=:code&name=:name', function(req, res) {
+  request(process.env.BILLETTERIE_HOST + 'search?code=' + req.params.code
+    + '&name=' + req.params.name, 
+    {json: true}, (err, result, body) =>{
+    if(err){
+      console.log(err)
+      res.json({"error":err})
+      return;
+    }
+    console.log(result)
+    res.json(body)
+
+  })
 });
 
 // more routes for our API will happen here
