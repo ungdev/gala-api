@@ -122,8 +122,7 @@ router.get('/ticket/code=:code&name=:name', function(req, res) {
       res.json({"error":err})
       return;
     }
-    console.log(result)
-    res.json(body)
+    res.json(result)
 
   })
 });
