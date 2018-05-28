@@ -114,7 +114,7 @@ router.get('/:event_id', function(req, res) {
 });
 
 router.get('/ticket/code=:code&name=:name', function(req, res) {
-  request(process.env.BILLETTERIE_HOST + 'search?code=' + req.params.code
+  request(process.env.BILLETTERIE_HOST + 'get?code=' + req.params.code
     + '&name=' + req.params.name, 
     {json: true}, (err, result, body) =>{
     if(err){
