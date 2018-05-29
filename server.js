@@ -114,8 +114,9 @@ router.get('/:event_id', function(req, res) {
 });
 
 router.get('/ticket/code=:code&name=:name', function(req, res) {
-  request(process.env.BILLETTERIE_HOST + 'get?code=' + req.params.code
-    + '&name=' + req.params.name, 
+  let url = encodeURI(process.env.BILLETTERIE_HOST + 'get?code=' + req.params.code
+    + '&name=' + req.params.name)
+  request(url, 
     {json: true}, (err, result, body) =>{
     if(err){
       console.log(err)
