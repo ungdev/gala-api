@@ -1,29 +1,41 @@
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define('event', {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false
     },
     start: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      allowNull: false
     },
     end: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      allowNull: false
     },
     place: {
-      type: DataTypes.STRING
-    },
-    description: {
-      type: DataTypes.STRING
-    },
-    artist: {
-      type: DataTypes.STRING
-    },
-    artistLink: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false
     },
     image: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    artist: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    artistLink: {
+      type: DataTypes.STRING,
+      allowNull: true
     },
     visible: {
       type: DataTypes.BOOLEAN,
