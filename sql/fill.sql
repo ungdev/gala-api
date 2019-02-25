@@ -1,4 +1,0 @@
-INSERT INTO `events` (`id`, `Title`, `Start`, `End`, `Room`, `Img`, `Description`) VALUES
-(1, 'Test1', '11h00', '12h00', 'M500', 'assets/imgs/daft_punk.jpg', 'zgzgbjzgjngzrhrzegzggz'),
-(2, 'Test 2', '00h00', '01h00', 'A203', 'assets/imgs/daft_punk.jpg', 'bfzobgozbenenejejje'),
-(3, 'Test 3', '01h00', '02h00', 'M104', 'assets/imgs/daft_punk.jpg', 'nonofzogznrgzrngnfkfkfkjfkfkfkfkfknonofzogznrgzrngnfkfkfkjfkfkfkfkfknonofzogznrgzrngnfkfkfkjfkfkfkfkfknonofzogznrgzrngnfkfkfkjfkfkfkfkfknonofzogznrgzrngnfkfkfkjfkfkfkfkfknonofzogznrgzrngnfkfkfkjfkfkfkfkfknonofzogznrgzrngnfkfkfkjfkfkfkfkfknonofzogznrgzrngnfkfkfkjfkfkfkfkfknonofzogznrgzrngnfkfkfkjfkfkfkfkfknonofzogznrgzrngnfkfkfkjfkfkfkfkfknonofzogznrgzrngnfkfkfkjfkfkfkfkfknonofzogznrgzrngnfkfkfkjfkfkfkfkfknonofzogznrgzrngnfkfkfkjfkfkfkfkfknonofzogznrgzrngnfkfkfkjfkfkfkfkfknonofzogznrgzrngnfkfkfkjfkfkfkfkfknonofzogznrgzrngnfkfkfkjfkfkfkfkfknonofzogznrgzrngnfkfkfkjfkfkfkfkfk');

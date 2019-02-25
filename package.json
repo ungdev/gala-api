@@ -1,21 +1,42 @@
 {
-  "name": "apigala",
-  "version": "1.0.0",
-  "description": "Api pour l'application mobile du Gala UTT",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"no test specified\""
-  },
-  "author": "Arnaud Dufour",
-  "license": "ISC",
+  "name": "api.gala.uttnetgroup.fr",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "connect-mariasql": "0.0.3",
+    "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "bwip-js": "^1.7.1",
+    "compression": "^1.7.2",
+    "cors": "^2.8.4",
+    "cross-env": "^5.1.6",
+    "debug": "^3.1.0",
+    "dot": "^1.1.2",
     "dotenv": "^5.0.1",
-    "express": "^4.16.2",
-    "https": "^1.0.0",
-    "mariasql": "^0.2.6",
-    "node-mariadb": "^0.1.1",
-    "npm": "^6.1.0",
-    "request": "^2.87.0"
+    "express": "^4.16.3",
+    "express-validator": "^5.2.0",
+    "helmet": "^3.12.1",
+    "joi": "^13.3.0",
+    "js-base64": "^2.4.9",
+    "jsonwebtoken": "^8.2.2",
+    "jwt-simple": "^0.5.1",
+    "lodash": "^4.17.10",
+    "lodash.pick": "^4.4.0",
+    "morgan": "^1.9.0",
+    "mysql2": "^1.5.3",
+    "pm2": "^2.10.4",
+    "prettier": "^1.13.4",
+    "sequelize": "^4.37.10",
+    "socket.io": "^2.2.0",
+    "svr": "^0.7.0",
+    "uuid": "^3.2.1",
+    "winston": "^2.4.2"
+  },
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development DEBUG=api.gala.uttnetgroup.fr:* svr ./src/index.js",
+    "start": "node ./bin/start.js",
+    "serve": "pm2 start ./bin/start.js -i max --wait-ready --name api.gala.uttnetgroup.fr",
+    "reload": "pm2 reload api.gala.uttnetgroup.fr --update-env",
+    "lint": "prettier --single-quote --print-width 100 --tab-width 2 --no-semi --write \"{src,bin}/**/*.js\""
   }
 }
