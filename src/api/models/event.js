@@ -29,14 +29,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true
     },
-    artist: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    artistLink: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
     visible: {
       type: DataTypes.BOOLEAN,
       defaultValue: true

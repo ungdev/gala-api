@@ -52,7 +52,8 @@ module.exports = app => {
           image: req.body.image,
           description: req.body.description,
           artist: req.body.artist,
-          artistLink: req.body.artistLink
+          artistLink: req.body.artistLink,
+          visible: req.body.visible
         },
         {
           where: { id: req.body.id }
@@ -71,7 +72,8 @@ module.exports = app => {
         image: req.body.image,
         description: req.body.description,
         artist: req.body.artist,
-        artistLink: req.body.artistLink
+        artistLink: req.body.artistLink,
+        visible: req.body.visible
       })
     }
 
