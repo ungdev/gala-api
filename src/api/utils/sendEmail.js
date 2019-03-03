@@ -1,14 +1,6 @@
 const nodemailer = require('nodemailer')
 const log = require('./log')(module)
 
-/**
- * Infos expected :
- *  - to
- *  - subject
- *  - html
- *  - text (optional)
- */ 
-
 let transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
   port: process.env.EMAIL_PORT,
@@ -20,12 +12,21 @@ let transporter = nodemailer.createTransport({
 
 transporter.verify(error => {
   if(error) {
-    log.info('Error when creating SMTP transport :\n', error)
+    log.error('Error when creating SMTP transport :\n', error)
   }
   else {
     log.info('Created SMTP transport successfully')
   }
 })
+
+/**
+* Infos {
+*   to : String
+*   subject : String
+*   html : String
+*   text : String (optional)
+* }
+*/ 
 
 module.exports = async (infos) => {
   await transporter.sendMail({

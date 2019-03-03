@@ -32,11 +32,16 @@ fs.readFile(path.join(__dirname, '../../templates/contactEmail.txt'), (err, data
 module.exports = (app) => {
   app.post('/contact', [
     check('name')
-      .isString(),
+      .exists()
+      .isString()
+      .not().isEmpty(),
     check('email')
+      .exists()
       .isEmail(),
     check('message')
-      .isString(),
+      .exists()
+      .isString()
+      .not().isEmpty(),
     validateBody()
   ])
 
