@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     link: {
       type: DataTypes.STRING,
       allowNull: true
-    }
+    },
+    visible: { type: DataTypes.BOOLEAN, defaultValue: true }
   })
 }
