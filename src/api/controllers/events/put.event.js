@@ -40,7 +40,7 @@ module.exports = app => {
 
     // Update event
     try {
-      let event = await Event.findById(req.params.id)
+      let event = await Event.findByPk(req.params.id)
       if (!event)
         return res
           .status(404)
