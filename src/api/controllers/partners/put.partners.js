@@ -27,7 +27,7 @@ module.exports = app => {
     const { Partner } = app.locals.models
 
     try {
-      let partner = await Partner.findByID(req.params.id)
+      let partner = await Partner.findById(req.params.id)
       if (!partner)
         return res
           .status(404)
