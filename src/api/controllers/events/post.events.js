@@ -38,7 +38,6 @@ module.exports = app => {
   app.post('/events', async (req, res) => {
     const { Event } = app.locals.models
     try {
-      if (req.body.visible === undefined) req.body.visible = true
       let event = await Event.create(req.body)
       log.info(`Event ${event.name} created`)
       return res
