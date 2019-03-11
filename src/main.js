@@ -3,10 +3,11 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const helmet = require('helmet')
 const controllers = require('./api/controllers')
+const iocontrollers = require('./api/iocontrollers')
 const error = require('./api/middlewares/error')
 const log = require('./api/utils/log')(module)
 
-module.exports = app => {
+module.exports = (app, io) => {
 
   app.use(
     morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'combined', { stream: log.stream })
@@ -20,6 +21,7 @@ module.exports = app => {
   })
 
   app.use('/api/v1', controllers(app))
+  iocontrollers(app, io)
 
   app.use(error.converter)
   app.use(error.notFound)
