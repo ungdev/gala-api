@@ -1,14 +1,7 @@
 const nodemailer = require('nodemailer')
 const log = require('./log')(module)
 
-let transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST,
-  port: process.env.EMAIL_PORT,
-  auth: {
-    user: process.env.EMAIL_AUTH_USER,
-    pass: process.env.EMAIL_AUTH_PASSWORD
-  }
-});
+let transporter = nodemailer.createTransport(process.env.EMAIL_SMTP);
 
 transporter.verify(error => {
   if(error) {
