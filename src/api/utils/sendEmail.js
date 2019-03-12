@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer')
 const log = require('./log')(module)
 
-let transporter = nodemailer.createTransport(process.env.EMAIL_SMTP);
+let transporter = nodemailer.createTransport(process.env.EMAIL_SMTP)
 
 transporter.verify(error => {
   if(error) {
@@ -19,7 +19,7 @@ transporter.verify(error => {
 *   html : String
 *   text : String (optional)
 * }
-*/ 
+*/
 
 module.exports = async (infos) => {
   await transporter.sendMail({

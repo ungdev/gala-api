@@ -7,10 +7,15 @@ module.exports = app => {
 
   router.locals = app.locals
 
+  // Include all routes
   fs.readdirSync(__dirname)
-    .filter(name => name !== 'index.js')
-    .map(name => require(path.join(__dirname, name)))
-    .forEach(controller => controller(router))
+  .filter(folder => folder !== 'index.js')
+  .map(folder => path.join(__dirname, folder))
+  .forEach(folderPath =>
+    fs.readdirSync(folderPath)
+      .map(fileName => require(path.join(folderPath, fileName)))
+      .forEach(route => route(app))
+  )
 
   return router
 }
