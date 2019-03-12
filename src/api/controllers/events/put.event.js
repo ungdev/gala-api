@@ -1,26 +1,24 @@
+const errorHandler = require('../../utils/errorHandler')
 const { check } = require('express-validator/check')
 const validateBody = require('../../middlewares/validateBody')
 const log = require('../../utils/log')(module)
 
 module.exports = app => {
-  app.put('/event', [
-    check('id')
-      .optional()
-      .isUUID(),
+  app.put('/events/:id', [
     check('name')
-      .exists()
+      .optional()
       .isString(),
     check('start')
-      .exists()
+      .optional()
       .isString(),
     check('end')
-      .exists()
+      .optional()
       .isString(),
     check('place')
-      .exists()
+      .optional()
       .isString(),
     check('image')
-      .exists()
+      .optional()
       .isString(),
     check('description')
       .optional()
@@ -37,49 +35,25 @@ module.exports = app => {
     validateBody()
   ])
 
-  app.put('/event', async (req, res) => {
+  app.put('/events/:id', async (req, res) => {
     const { Event } = app.locals.models
-    let event = null;
 
-    if(req.body.id) {
-      // Update event
-      await Event.update(
-        {
-          name: req.body.name,
-          start: req.body.start,
-          end: req.body.end,
-          place: req.body.place,
-          image: req.body.image,
-          description: req.body.description,
-          artist: req.body.artist,
-          artistLink: req.body.artistLink,
-          visible: req.body.visible
-        },
-        {
-          where: { id: req.body.id }
-        }
-      )
-
-      event = await Event.findByPk(req.body.id)
+    // Update event
+    try {
+      let event = await Event.findByPk(req.params.id)
+      if (!event)
+        return res
+          .status(404)
+          .json({ error: 'NOT_FOUND' })
+          .end()
+      await event.update(req.body)
+      log.info(`Event ${event.name} updated`)
+      return res
+        .status(200)
+        .json(event)
+        .end()
+    } catch (err) {
+      errorHandler(err, res)
     }
-    else {
-      // Create event
-      event = await Event.create({
-        name: req.body.name,
-        start: req.body.start,
-        end: req.body.end,
-        place: req.body.place,
-        image: req.body.image,
-        description: req.body.description,
-        artist: req.body.artist,
-        artistLink: req.body.artistLink,
-        visible: req.body.visible
-      })
-    }
-
-    return res
-      .status(200)
-      .json(event)
-      .end();
   })
 }

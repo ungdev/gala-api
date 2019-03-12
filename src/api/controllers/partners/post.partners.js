@@ -1,18 +1,17 @@
 const errorHandler = require('../../utils/errorHandler')
 const { check } = require('express-validator/check')
 const validateBody = require('../../middlewares/validateBody')
-const log = require('../../utils/log')(module)
 
 module.exports = app => {
-  app.put('/partners/:id', [
+  app.post('/partners', [
     check('name')
-      .optional()
+      .exists()
       .isString(),
     check('image')
-      .optional()
+      .exists()
       .isString(),
     check('url')
-      .optional()
+      .exists()
       .isString(),
     check('description')
       .optional()
@@ -23,24 +22,18 @@ module.exports = app => {
     validateBody()
   ])
 
-  app.put('/partners/:id', async (req, res) => {
-    const { Partner } = app.locals.models
-
+  app.post('/partners', async (req, res) => {
+    const { Partner } = req.app.locals.models
     try {
-      let partner = await Partner.findByPk(req.params.id)
-      if (!partner)
-        return res
-          .status(404)
-          .json({ error: 'NOT_FOUND' })
-          .end()
-      await partner.update(req.body)
-      log.info(`Partner ${partner.name} modified`)
+      const partner = await Partner.create(req.body)
+      log.info(`Partner ${partner.name} created`)
+
       return res
         .status(200)
         .json(partner)
         .end()
-      } catch (err) {
-        errorHandler(err, res)
-      }
+    } catch (err) {
+      errorHandler(err, res)
+    }
   })
 }

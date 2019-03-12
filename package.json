@@ -11,7 +11,6 @@
     "cors": "^2.8.4",
     "cross-env": "^5.1.6",
     "debug": "^3.1.0",
-    "dot": "^1.1.2",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "express-validator": "^5.2.0",
@@ -30,12 +29,11 @@
     "prettier": "^1.13.4",
     "sequelize": "^4.37.10",
     "socket.io": "^2.2.0",
-    "svr": "^0.7.0",
     "uuid": "^3.2.1",
     "winston": "^2.4.2"
   },
   "scripts": {
-    "dev": "cross-env NODE_ENV=development DEBUG=api.gala.uttnetgroup.fr:* svr ./src/index.js",
+    "dev": "cross-env NODE_ENV=development DEBUG=api.gala.uttnetgroup.fr:* nodemon ./bin/start.js",
     "start": "node ./bin/start.js",
     "serve": "pm2 start ./bin/start.js -i max --wait-ready --name api.gala.uttnetgroup.fr",
     "reload": "pm2 reload api.gala.uttnetgroup.fr --update-env",

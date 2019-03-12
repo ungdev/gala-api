@@ -4,17 +4,29 @@ const validateBody = require('../../middlewares/validateBody')
 const log = require('../../utils/log')(module)
 
 module.exports = app => {
-  app.put('/partners/:id', [
+  app.post('/events', [
     check('name')
-      .optional()
+      .isString()
+      .exists(),
+    check('start')
+      .exists()
+      .isString(),
+    check('end')
+      .exists()
       .isString(),
     check('image')
-      .optional()
+      .exists()
       .isString(),
-    check('url')
+    check('place')
       .optional()
       .isString(),
     check('description')
+      .optional()
+      .isString(),
+    check('artist')
+      .optional()
+      .isString(),
+    check('artistLink')
       .optional()
       .isString(),
     check('visible')
@@ -23,24 +35,17 @@ module.exports = app => {
     validateBody()
   ])
 
-  app.put('/partners/:id', async (req, res) => {
-    const { Partner } = app.locals.models
-
+  app.post('/events', async (req, res) => {
+    const { Event } = app.locals.models
     try {
-      let partner = await Partner.findByPk(req.params.id)
-      if (!partner)
-        return res
-          .status(404)
-          .json({ error: 'NOT_FOUND' })
-          .end()
-      await partner.update(req.body)
-      log.info(`Partner ${partner.name} modified`)
+      let event = await Event.create(req.body)
+      log.info(`Event ${event.name} created`)
       return res
         .status(200)
-        .json(partner)
+        .json(event)
         .end()
-      } catch (err) {
-        errorHandler(err, res)
-      }
+    } catch (err) {
+      errorHandler(err, res)
+    }
   })
 }
