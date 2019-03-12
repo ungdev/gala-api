@@ -1,4 +1,5 @@
-Nouveau message depuis le formulaire de contact du site du Gala
+Nouveau message depuis le formulaire de contact du site.
+
 Nom : {{ name }}
 Email : {{ email }}
 Date : {{ date }}
