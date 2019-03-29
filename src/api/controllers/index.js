@@ -14,7 +14,7 @@ module.exports = app => {
   .forEach(folderPath =>
     fs.readdirSync(folderPath)
       .map(fileName => require(path.join(folderPath, fileName)))
-      .forEach(route => route(app))
+      .forEach(controller => controller(router))
   )
 
   return router
