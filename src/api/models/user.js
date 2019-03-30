@@ -5,6 +5,10 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
+    full_name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     student_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

@@ -1,46 +1,48 @@
 const { check } = require('express-validator/check')
 const oauth2 = require('simple-oauth2')
 const axios = require('axios')
+const jwt = require('jsonwebtoken')
 
 const log = require('../../utils/log')(module)
 const validateBody = require('../../middlewares/validateBody')
 
 module.exports = app => {
-  app.get('/login', [
-    check('authorization_code')
-      .exists()
-      .isString(),
+  app.get('/etuutt/redirect', [
+    check('authorization_code').exists(),
     validateBody()
   ])
 
-  app.get('/login', async (req, res) => {
+  app.get('/etuutt/redirect', async (req, res) => {
     const { User } = app.locals.models
-    let tokenUrl = ''
-
+    let token = ''
     try {
       // Create OAuth object
       const auth = oauth2.create({
         client: {
-          id: process.env.ETUUTT_CLIENT_ID,
-          secret: process.env.ETUUTT_CLIENT_SECRET
+          id: process.env.ETU_CLIENT_ID,
+          secret: process.env.ETU_CLIENT_SECRET
         },
         auth: {
-          tokenHost: 'https://etu.utt.fr',
+          tokenHost: process.env.ETU_BASEURL,
           tokenPath: '/api/oauth/token',
           authorizePath: '/api/oauth/authorize'
         }
       })
 
       // Save access token
-      const token = await auth.authorizationCode.getToken({
+      const etu_token = await auth.authorizationCode.getToken({
         code: req.query.authorization_code
       })
-      const accessToken = auth.accessToken.create(token)
+      const accessToken = auth.accessToken.create(etu_token)
 
       // Retrieve user infos
-      const res = await axios.get(`https://etu.utt.fr/api/public/user/account?access_token=${accessToken.token.access_token}`)
-      const studentId = res.data.data.studentId
-
+      const res = await axios.get(
+        `${process.env.ETU_BASEURL}/api/public/user/account`,
+        {
+          headers: { Authorization: `Bearer ${accessToken.token.access_token}` }
+        }
+      )
+      const { studentId, fullName } = res.data.data
       // Try to find the user
       let user = await User.findOne({
         where: {
@@ -48,31 +50,29 @@ module.exports = app => {
         }
       })
 
-      if(user) {
+      if (user) {
         // Update user fields
         user.access_token = accessToken.token.access_token
         user.refresh_token = accessToken.token.refresh_token
         user.token_expires = accessToken.token.expires
 
         await user.save()
-      }
-      else {
+      } else {
         // Create new user in the db
         user = await User.create({
+          full_name: fullName,
           student_id: studentId,
           access_token: accessToken.token.access_token,
           refresh_token: accessToken.token.refresh_token,
           token_expires: accessToken.token.expires
         })
       }
-
-      // Return access token
-      tokenUrl = `${user.id}:${user.access_token}`
-    }
-    catch(err) {
+      token = jwt.sign({ id: user.id }, process.env.API_SECRET, {
+        expiresIn: process.env.API_SECRET_EXPIRES
+      })
+    } catch (err) {
       log.error(err)
     }
-
-    return res.redirect(`${process.env.LOGIN_REDIRECT_URL}?token=${tokenUrl}`)
+    return res.redirect(`${process.env.LOGIN_REDIRECT_URL}?token=${token}`)
   })
 }
