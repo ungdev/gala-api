@@ -2,6 +2,8 @@ const errorHandler = require('../../utils/errorHandler')
 const { check } = require('express-validator/check')
 const validateBody = require('../../middlewares/validateBody')
 const log = require('../../utils/log')(module)
+const isAuth = require('../../middlewares/isAuth')
+const isAdmin = require('../../middlewares/isAdmin')
 
 module.exports = app => {
   app.post('/events', [
@@ -26,15 +28,12 @@ module.exports = app => {
     check('artist')
       .optional()
       .isString(),
-    check('artistLink')
-      .optional()
-      .isString(),
     check('visible')
       .optional()
       .isBoolean(),
     validateBody()
   ])
-
+  app.post('/events', [isAuth('events-create'), isAdmin('events-create')])
   app.post('/events', async (req, res) => {
     const { Event } = app.locals.models
     try {

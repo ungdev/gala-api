@@ -2,6 +2,8 @@ const errorHandler = require('../../utils/errorHandler')
 const { check } = require('express-validator/check')
 const validateBody = require('../../middlewares/validateBody')
 const log = require('../../utils/log')(module)
+const isAuth = require('../../middlewares/isAuth')
+const isAdmin = require('../../middlewares/isAdmin')
 
 module.exports = app => {
   app.put('/events/:id', [
@@ -35,6 +37,7 @@ module.exports = app => {
     validateBody()
   ])
 
+  app.put('/events/:id', [isAuth('events-modify'), isAdmin('events-modify')])
   app.put('/events/:id', async (req, res) => {
     const { Event } = app.locals.models
 
@@ -47,7 +50,7 @@ module.exports = app => {
           .json({ error: 'NOT_FOUND' })
           .end()
       await event.update(req.body)
-      log.info(`Event ${event.name} updated`)
+      log.info(`Event ${event.name} updated by ${req.user.full_name}`)
       return res
         .status(200)
         .json(event)

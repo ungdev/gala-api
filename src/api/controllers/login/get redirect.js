@@ -9,6 +9,7 @@ const validateBody = require('../../middlewares/validateBody')
 module.exports = app => {
   app.get('/etuutt/redirect', [
     check('authorization_code').exists(),
+    check('state').exists(),
     validateBody()
   ])
 
@@ -73,6 +74,9 @@ module.exports = app => {
     } catch (err) {
       log.error(err)
     }
-    return res.redirect(`${process.env.LOGIN_REDIRECT_URL}?token=${token}`)
+    const redirectInfos = req.query.state.split('..')
+    return res.redirect(
+      `${redirectInfos[0]}://${redirectInfos[1]}/login?token=${token}`
+    )
   })
 }
