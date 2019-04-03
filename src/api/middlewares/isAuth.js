@@ -1,17 +1,33 @@
 const jwt = require('jsonwebtoken')
 const { promisify } = require('util')
-const env = require('../../env')
 const log = require('../utils/log')(module)
+const moment = require('moment')
 
 jwt.verify = promisify(jwt.verify)
 
 module.exports = route => async (req, res, next) => {
-  const { User, Permission, Team, Spotlight } = req.app.locals.models
+  const { User, Permission } = req.app.locals.models
 
-  const auth = req.get('X-Token')
-
+  const date = req.get('X-Date')
+  enabled = false // put at false when you want to use postman for example
+  if (enabled && date && moment().format('x') - moment(date).format('x') > 2000)
+    return res
+      .status(401)
+      .json({ error: 'TOO_LATE' })
+      .end()
+  const auth = req.get('Authorization')
   if (!auth || auth.length === 0) {
-    log.warn('missing token', { route })
+    log.warn('Missing token', { route })
+
+    return res
+      .status(401)
+      .json({ error: 'NO_TOKEN' })
+      .end()
+  }
+  const token = auth.split('Basic ')[1]
+
+  if (!token || token.length === 0) {
+    log.warn('Missing token', { route })
 
     return res
       .status(401)
@@ -20,24 +36,16 @@ module.exports = route => async (req, res, next) => {
   }
 
   try {
-    const decoded = await jwt.verify(auth, env.ARENA_API_SECRET)
+    const decoded = await jwt.verify(token, process.env.API_SECRET)
 
-    const user = await User.findById(decoded.id, {
-      include:
-      [
-        {
-          model: Team,
-          include: [User, Spotlight]
-        },
-        Permission
-      ]
+    const user = await User.findByPk(decoded.id, {
+      include: [Permission]
     })
 
     req.user = user
-
+    req.user.permissions = req.user.permissions.map(permission => permission.name)
     next()
-  }
-  catch (err) {
+  } catch (err) {
     log.warn('invalid token', { route })
 
     return res

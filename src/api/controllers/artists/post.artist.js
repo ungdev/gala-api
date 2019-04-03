@@ -8,36 +8,24 @@ const path = require('path')
 const fs = require('fs')
 
 module.exports = app => {
-  app.post('/events', [
+  app.post('/artists', [
     check('name')
       .isString()
       .exists(),
-    check('start')
-      .exists()
-      .isString(),
-    check('end')
-      .exists()
-      .isString(),
     check('image')
       .exists()
       .isString(),
-    check('place')
-      .optional()
-      .isString(),
-    check('description')
-      .optional()
-      .isString(),
-    check('artist')
-      .optional()
+    check('link')
+      .exists()
       .isString(),
     check('visible')
       .optional()
       .isBoolean(),
     validateBody()
   ])
-  app.post('/events', [isAuth('events-create'), isAdmin('events-create')])
-  app.post('/events', async (req, res) => {
-    const { Event } = app.locals.models
+  app.post('/artists', [isAuth('artists-create'), isAdmin('artists-create')])
+  app.post('/artists', async (req, res) => {
+    const { Artist } = app.locals.models
     try {
       const files = fs.readdirSync(path.join(__dirname, '../../../../temp'))
       let file = files.find(f => f.indexOf(req.body.image) !== -1)
@@ -46,11 +34,11 @@ module.exports = app => {
       fs.copyFileSync(oldfile, newfile)
       fs.unlinkSync(oldfile)
 
-      let event = await Event.create({ ...req.body, image: '/images/' + file })
-      log.info(`Event ${event.name} created`)
+      let artist = await Artist.create({ ...req.body, image: '/images/' + file })
+      log.info(`Artist ${artist.name} created`)
       return res
         .status(200)
-        .json(event)
+        .json(artist)
         .end()
     } catch (err) {
       errorHandler(err, res)

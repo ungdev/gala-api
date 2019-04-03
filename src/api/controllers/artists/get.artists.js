@@ -3,10 +3,10 @@ const isAuth = require('../../middlewares/isAuth')
 const isAdmin = require('../../middlewares/isAdmin')
 
 module.exports = app => {
-  app.get('/events', async (req, res) => {
-    const { Event } = app.locals.models
+  app.get('/artists', async (req, res) => {
+    const { Artist } = app.locals.models
     try {
-      const events = await Event.findAll({
+      const artists = await Artist.findAll({
         where: {
           visible: true
         }
@@ -14,22 +14,22 @@ module.exports = app => {
 
       return res
         .status(200)
-        .json(events)
+        .json(artists)
         .end()
     } catch (err) {
       errorHandler(err, res)
     }
   })
 
-  app.get('/events/all', [isAuth('events-get-all'), isAdmin('events-get-all')])
-  app.get('/events/all', async (req, res) => {
-    const { Event } = app.locals.models
+  app.get('/artists/all', [isAuth('artists-get-all'), isAdmin('artists-get-all')])
+  app.get('/artists/all', async (req, res) => {
+    const { Artist } = app.locals.models
     try {
-      const events = await Event.findAll()
+      const artists = await Artist.findAll()
 
       return res
         .status(200)
-        .json(events)
+        .json(artists)
         .end()
     } catch (err) {
       errorHandler(err, res)

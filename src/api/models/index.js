@@ -3,14 +3,21 @@ module.exports = function(sequelize) {
   const Event = sequelize.import(`${__dirname}/event`)
   const Image = sequelize.import(`${__dirname}/image`)
   const Artist = sequelize.import(`${__dirname}/artist`)
+  const User = sequelize.import(`${__dirname}/user`)
+  const Permission = sequelize.import(`${__dirname}/permission`)
 
-  Event.hasOne(Artist)
-  Artist.belongsTo(Event)
+  Event.belongsTo(Artist)
+  Artist.hasMany(Event)
+
+  Permission.belongsTo(User)
+  User.hasMany(Permission)
 
   return {
-    Partner,
+    Artist,
     Event,
     Image,
-    Artist
+    Partner,
+    Permission,
+    User
   }
 }
