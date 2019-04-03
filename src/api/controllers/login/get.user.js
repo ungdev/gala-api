@@ -18,7 +18,7 @@ module.exports = app => {
       log.info(`user ${req.user.full_name} fetch his infos`)
       res
         .status(200)
-        .json(req.user)
+        .json(pick(req.user, ['id', 'full_name', 'permissions']))
         .end()
     } catch (err) {
       errorHandler(err, res)

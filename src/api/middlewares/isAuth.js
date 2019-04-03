@@ -39,11 +39,10 @@ module.exports = route => async (req, res, next) => {
     const decoded = await jwt.verify(token, process.env.API_SECRET)
 
     const user = await User.findByPk(decoded.id, {
-      include: [Permission]
+      include: [{ model: Permission, attributes: ['name'] }]
     })
-
+    user.permissions = user.permissions.map(permission => permission.name)
     req.user = user
-    req.user.permissions = req.user.permissions.map(permission => permission.name)
     next()
   } catch (err) {
     log.warn('invalid token', { route })

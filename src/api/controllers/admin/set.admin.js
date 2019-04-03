@@ -8,6 +8,11 @@ module.exports = app => {
     const { User, Permission } = app.locals.models
     try {
       let user = await User.findByPk(req.params.id, { include: [Permission] })
+      if (!user)
+        return res
+          .status(404)
+          .json({ error: 'NOT_FOUND' })
+          .end()
       if (user.permissions.find(permission => permission.name === 'admin'))
         return res
           .status(400)
