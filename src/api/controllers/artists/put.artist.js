@@ -8,59 +8,43 @@ const path = require('path')
 const fs = require('fs')
 
 module.exports = app => {
-  app.put('/events/:id', [
+  app.put('/artists/:id', [
     check('name')
       .isString()
       .exists(),
-    check('start')
-      .exists()
-      .isString(),
-    check('end')
+    check('link')
       .exists()
       .isString(),
     check('image')
       .exists()
       .isString(),
-    check('place')
-      .optional()
-      .isString(),
-    check('description')
-      .optional()
-      .isString(),
-    check('artist')
-      .optional()
-      .isUUID(),
     check('visible')
       .optional()
       .isBoolean(),
     validateBody()
   ])
-  app.put('/events/:id', [isAuth('events-modify'), isAdmin('events-modify')])
-  app.put('/events/:id', async (req, res) => {
-    const { Event, Artist } = app.locals.models
+  app.put('/artists/:id', [isAuth('artists-modify'), isAdmin('artists-modify')])
+  app.put('/artists/:id', async (req, res) => {
+    const { Artist } = app.locals.models
     try {
-      let event = await Event.findByPk(req.params.id)
+      let artist = await Artist.findByPk(req.params.id)
       const files = fs.readdirSync(path.join(__dirname, '../../../../temp'))
       let file = files.find(f => f.indexOf(req.body.image) !== -1)
       if (file) {
-        fs.unlinkSync(path.join(__dirname, '../../../..', event.image))
+        fs.unlinkSync(path.join(__dirname, '../../../..', artist.image))
         const oldfile = path.join(__dirname, '../../../../temp', file)
         const newfile = path.join(__dirname, '../../../../images', file)
         fs.copyFileSync(oldfile, newfile)
         fs.unlinkSync(oldfile)
-        await event.update({ ...req.body, image: '/images/' + file })
+        await artist.update({ ...req.body, image: '/images/' + file })
       } else {
-        await event.update(req.body)
+        await artist.update(req.body)
       }
 
-      if(req.body.artist) {
-        const artist = await Artist.findByPk(req.body.artist)
-        if(artist) await event.setArtist(artist)
-      }
-      log.info(`Event ${event.name} modified`)
+      log.info(`Artist ${artist.name} modified`)
       return res
         .status(200)
-        .json(event)
+        .json(artist)
         .end()
     } catch (err) {
       errorHandler(err, res)
