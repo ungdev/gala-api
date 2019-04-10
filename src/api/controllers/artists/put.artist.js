@@ -8,15 +8,12 @@ const path = require('path')
 const fs = require('fs')
 
 module.exports = app => {
-  app.put('/partners/:id', [
+  app.put('/artists/:id', [
     check('name')
       .isString()
       .exists(),
-    check('url')
+    check('link')
       .exists()
-      .isString(),
-    check('description')
-      .optional()
       .isString(),
     check('image')
       .exists()
@@ -26,31 +23,28 @@ module.exports = app => {
       .isBoolean(),
     validateBody()
   ])
-  app.put('/partners/:id', [
-    isAuth('partners-modify'),
-    isAdmin('partners-modify')
-  ])
-  app.put('/partners/:id', async (req, res) => {
-    const { Partner } = app.locals.models
+  app.put('/artists/:id', [isAuth('artists-modify'), isAdmin('artists-modify')])
+  app.put('/artists/:id', async (req, res) => {
+    const { Artist } = app.locals.models
     try {
-      let partner = await Partner.findByPk(req.params.id)
+      let artist = await Artist.findByPk(req.params.id)
       const files = fs.readdirSync(path.join(__dirname, '../../../../temp'))
       let file = files.find(f => f.indexOf(req.body.image) !== -1)
       if (file) {
-        fs.unlinkSync(path.join(__dirname, '../../../..', partner.image))
+        fs.unlinkSync(path.join(__dirname, '../../../..', artist.image))
         const oldfile = path.join(__dirname, '../../../../temp', file)
         const newfile = path.join(__dirname, '../../../../images', file)
         fs.copyFileSync(oldfile, newfile)
         fs.unlinkSync(oldfile)
-        await partner.update({ ...req.body, image: '/images/' + file })
+        await artist.update({ ...req.body, image: '/images/' + file })
       } else {
-        await partner.update(req.body)
+        await artist.update(req.body)
       }
 
-      log.info(`Partner ${partner.name} modified`)
+      log.info(`Artist ${artist.name} modified`)
       return res
         .status(200)
-        .json(partner)
+        .json(artist)
         .end()
     } catch (err) {
       errorHandler(err, res)
