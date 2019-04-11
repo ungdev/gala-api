@@ -1,8 +1,15 @@
 module.exports = (app, io) => {
-  io.on('connection', socket => {
+  io.on('connection', async socket => {
     console.log('CONNEXION')
-    socket.on('disconnect', () => {
-      console.log('DISCONNEXION')
-    })
+    try {
+      const { Partner } = app.locals.models
+      const partners = await Partner.findAll()
+      socket.emit('partners', partners)
+      socket.on('disconnect', () => {
+        console.log('DISCONNEXION')
+      })
+    } catch (e) {
+      console.log(e)
+    }
   })
 }
