@@ -9,7 +9,10 @@ module.exports = app => {
       const events = await Event.findAll({
         where: {
           visible: true
-        }
+        },
+        order: [
+          ['start', 'ASC']
+        ]
       })
 
       return res
@@ -25,7 +28,11 @@ module.exports = app => {
   app.get('/events/all', async (req, res) => {
     const { Event } = app.locals.models
     try {
-      const events = await Event.findAll()
+      const events = await Event.findAll({
+        order: [
+          ['start', 'ASC']
+        ]
+      })
 
       return res
         .status(200)

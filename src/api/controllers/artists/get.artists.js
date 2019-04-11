@@ -9,7 +9,10 @@ module.exports = app => {
       const artists = await Artist.findAll({
         where: {
           visible: true
-        }
+        },
+        order: [
+          ['name', 'ASC']
+        ]
       })
 
       return res
@@ -25,7 +28,11 @@ module.exports = app => {
   app.get('/artists/all', async (req, res) => {
     const { Artist } = app.locals.models
     try {
-      const artists = await Artist.findAll()
+      const artists = await Artist.findAll({ 
+        order: [
+          ['name', 'ASC']
+        ]
+      })
 
       return res
         .status(200)
