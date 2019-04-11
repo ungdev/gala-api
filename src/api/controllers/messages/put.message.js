@@ -25,8 +25,8 @@ module.exports = app => {
       let message = await Message.findByPk(req.params.id)
       await message.update(req.body)
       await message.setUser(req.user)
-      
-      const messages = await Partner.findAll()
+
+      const messages = await Message.findAll()
       app.locals.io.emit('messages', messages)
 
       log.info(`Message ${message.content} modified`)
