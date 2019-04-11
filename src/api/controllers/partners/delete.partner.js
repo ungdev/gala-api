@@ -23,9 +23,11 @@ module.exports = app => {
       log.info(`Partner ${partner.name} deleted`)
       await partner.destroy()
       fs.unlinkSync(path.join(__dirname, '../../../..', partner.image))
+      const partners = await Partner.findAll()
+      app.locals.io.emit('partners', partners)
       return res
         .status(200)
-        .json(partner)
+        .json('OK')
         .end()
     } catch (err) {
       errorHandler(err, res)

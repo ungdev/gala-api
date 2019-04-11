@@ -46,6 +46,8 @@ module.exports = app => {
       } else {
         await partner.update(req.body)
       }
+      const partners = await Partner.findAll()
+      app.locals.io.emit('partners', partners)
 
       log.info(`Partner ${partner.name} modified`)
       return res
