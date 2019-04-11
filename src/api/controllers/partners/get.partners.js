@@ -9,7 +9,10 @@ module.exports = app => {
       const partners = await Partner.findAll({
         where: {
           visible: true
-        }
+        },
+        order: [
+          ['name', 'ASC']
+        ]
       })
 
       return res
@@ -25,7 +28,11 @@ module.exports = app => {
   app.get('/partners/all', async (req, res) => {
     const { Partner } = req.app.locals.models
     try {
-      const partners = await Partner.findAll()
+      const partners = await Partner.findAll({
+        order: [
+          ['name', 'ASC']
+        ]
+      })
 
       return res
         .status(200)

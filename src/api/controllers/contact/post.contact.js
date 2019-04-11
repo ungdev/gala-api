@@ -54,7 +54,7 @@ module.exports = (app) => {
 
     const data = {
       ...req.body,
-      date: new Date().toLocaleDateString('en-US', dateOptions)
+      date: new Date().toLocaleDateString('fr-FR', dateOptions)
     }
 
     sendEmail({
