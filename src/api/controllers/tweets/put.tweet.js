@@ -12,17 +12,14 @@ module.exports = app => {
       .isBoolean(),
     validateBody()
   ])
-  app.put('/tweets/:id', [
-    isAuth('tweet-modify'),
-    isAdmin('tweet-modify')
-  ])
+  app.put('/tweets/:id', [isAuth('tweet-modify'), isAdmin('tweet-modify')])
   app.put('/tweets/:id', async (req, res) => {
     const { Tweet } = app.locals.models
     try {
       let tweet = await Tweet.findByPk(req.params.id)
       await tweet.update(req.body)
 
-      const tweets = await Tweet.findAll()
+      const tweets = await Tweet.findAll({ order: [['createdAt', 'DESC']] })
       app.locals.io.emit('tweets', tweets)
 
       log.info(`Tweet ${tweet.text} modified`)

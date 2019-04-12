@@ -5,8 +5,8 @@ module.exports = (app, io) => {
       const { Partner, Message, Tweet } = app.locals.models
 
       const partners = await Partner.findAll()
-      const messages = await Message.findAll()
-      const tweets = await Tweet.findAll({ where: { visible: true } })
+      const messages = await Message.findAll({ order: [['createdAt', 'ASC']] })
+      const tweets = await Tweet.findAll({ order: [['createdAt', 'DESC']] })
       socket.emit('partners', partners)
       socket.emit('messages', messages)
       socket.emit('tweets', tweets)

@@ -20,7 +20,7 @@ module.exports = app => {
           .end()
       log.info(`Message ${message.content} deleted`)
       await message.destroy()
-      const messages = await Message.findAll()
+      const messages = await Message.findAll({ order: [['createdAt', 'ASC']] })
       app.locals.io.emit('messages', messages)
       return res
         .status(200)

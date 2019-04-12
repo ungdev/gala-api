@@ -23,7 +23,7 @@ module.exports = app => {
     try {
       let message = await Message.create(req.body)
       await message.setUser(req.user)
-      const messages = await Message.findAll()
+      const messages = await Message.findAll({ order: [['createdAt', 'ASC']] })
       app.locals.io.emit('messages', messages)
       log.info(`Message ${message.content} created`)
       return res

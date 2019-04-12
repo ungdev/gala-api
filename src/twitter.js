@@ -48,7 +48,7 @@ module.exports = app => {
         { headers: { 'Content-type': 'application/json' } }
       )
     } else {
-      const tweets = await Tweet.findAll()
+      const tweets = await Tweet.findAll({ order: [['createdAt', 'DESC']] })
       app.locals.io.emit('tweets', tweets)
     }
   })

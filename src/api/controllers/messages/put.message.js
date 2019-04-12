@@ -26,7 +26,7 @@ module.exports = app => {
       await message.update(req.body)
       await message.setUser(req.user)
 
-      const messages = await Message.findAll()
+      const messages = await Message.findAll({ order: [['createdAt', 'ASC']] })
       app.locals.io.emit('messages', messages)
 
       log.info(`Message ${message.content} modified`)
