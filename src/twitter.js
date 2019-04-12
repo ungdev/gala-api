@@ -48,7 +48,7 @@ module.exports = app => {
         { headers: { 'Content-type': 'application/json' } }
       )
     } else {
-      const tweets = await Tweet.findAll({ where: { visible: true } })
+      const tweets = await Tweet.findAll()
       app.locals.io.emit('tweets', tweets)
     }
   })
