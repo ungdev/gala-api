@@ -40,7 +40,7 @@ module.exports = app => {
   ])
   app.put('/events/:id', [isAuth('events-modify'), isAdmin('events-modify')])
   app.put('/events/:id', async (req, res) => {
-    const { Event, Artist } = app.locals.models
+    const { Event, Artist, Partner } = app.locals.models
     try {
       let event = await Event.findByPk(req.params.id)
       const files = fs.readdirSync(path.join(__dirname, '../../../../temp'))
