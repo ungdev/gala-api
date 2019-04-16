@@ -29,10 +29,10 @@ module.exports = app => {
       .isString(),
     check('artist')
       .optional()
-      .isUUID(),
+      .isString(),
     check('partner')
       .optional()
-      .isUUID(),
+      .isString(),
     check('visible')
       .optional()
       .isBoolean(),
