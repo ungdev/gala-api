@@ -30,6 +30,9 @@ module.exports = app => {
     check('artist')
       .optional()
       .isUUID(),
+    check('partner')
+      .optional()
+      .isUUID(),
     check('visible')
       .optional()
       .isBoolean(),
@@ -53,10 +56,15 @@ module.exports = app => {
         await event.update(req.body)
       }
 
-      if(req.body.artist) {
+      if (req.body.artist) {
         const artist = await Artist.findByPk(req.body.artist)
-        if(artist) await event.setArtist(artist)
+        if (artist) await event.setArtist(artist)
       }
+      if (req.body.partner) {
+        const partner = await Partner.findByPk(req.body.partner)
+        if (partner) await event.setPartner(partner)
+      }
+
       log.info(`Event ${event.name} modified`)
       return res
         .status(200)

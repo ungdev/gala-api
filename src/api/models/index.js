@@ -11,6 +11,9 @@ module.exports = function(sequelize) {
   Event.belongsTo(Artist)
   Artist.hasMany(Event)
 
+  Event.belongsTo(Partner)
+  Partner.hasMany(Event)
+
   Permission.belongsTo(User)
   User.hasMany(Permission)
 

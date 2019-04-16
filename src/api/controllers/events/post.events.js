@@ -27,9 +27,12 @@ module.exports = app => {
     check('description')
       .optional()
       .isString(),
-    check('artist')
-      .optional()
-      .isString(),
+      check('artist')
+        .optional()
+        .isString(),
+        check('partner')
+          .optional()
+          .isString(),
     check('visible')
       .optional()
       .isBoolean(),
@@ -50,6 +53,10 @@ module.exports = app => {
       if(req.body.artist) {
         const artist = await Artist.findByPk(req.body.artist)
         if(artist) await event.setArtist(artist)
+      }
+      if(req.body.partner) {
+        const partner = await Partner.findByPk(req.body.partner)
+        if(partner) await event.setPartner(partner)
       }
       log.info(`Event ${event.name} created`)
       return res
