@@ -14,7 +14,6 @@ module.exports = app => {
   })
 
   stream.on('data', async event => {
-    console.log('tweet !')
     event.text = event.text.replace('&gt;', '>').replace('&lt;', '<')
     const censoreds = await Censored.findAll({
       attributes: ['word'],
@@ -31,7 +30,6 @@ module.exports = app => {
     console.log(
       `Message en provenance de ${event.user.screen_name}: "${event.text}"`
     )
-    console.log(found)
     await Tweet.create({
       user: event.user.screen_name,
       text: removeAccents(event.text).toLowerCase(),

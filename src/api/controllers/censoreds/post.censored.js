@@ -6,27 +6,26 @@ const isAuth = require('../../middlewares/isAuth')
 const isAdmin = require('../../middlewares/isAdmin')
 
 module.exports = app => {
-  app.post('/messages', [
-    check('content')
+  app.post('/censoreds', [
+    check('word')
       .isString()
       .exists(),
-    check('visible')
+    check('level')
       .optional()
-      .isBoolean(),
+      .isNumeric(),
     validateBody()
   ])
-  app.post('/messages', [isAuth('message-create'), isAdmin('message-create')])
-  app.post('/messages', async (req, res) => {
-    const { Message } = app.locals.models
+  app.post('/censoreds', [isAuth('censored-create'), isAdmin('censored-create')])
+  app.post('/censoreds', async (req, res) => {
+    const { Censored } = app.locals.models
     try {
-      let message = await Message.create(req.body)
-      await message.setUser(req.user)
-      const messages = await Message.findAll({ order: [['createdAt', 'ASC']] })
-      app.locals.io.emit('messages', messages)
-      log.info(`Message ${message.content} created`)
+      let censored = await Censored.create(req.body)
+      const censoreds = await Censored.findAll({ order: [['word', 'ASC']] })
+      app.locals.io.emit('censoreds', censoreds)
+      log.info(`Censore ${censored.word} created`)
       return res
         .status(200)
-        .json(message)
+        .json(censored)
         .end()
     } catch (err) {
       errorHandler(err, res)
