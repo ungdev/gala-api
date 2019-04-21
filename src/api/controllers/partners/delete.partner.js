@@ -23,7 +23,7 @@ module.exports = app => {
       log.info(`Partner ${partner.name} deleted`)
       await partner.destroy()
       fs.unlinkSync(path.join(__dirname, '../../../..', partner.image))
-      const partners = await Partner.findAll()
+      const partners = await Partner.findAll({ where: { visible: 1 } })
       app.locals.io.emit('partners', partners)
       return res
         .status(200)

@@ -41,7 +41,7 @@ module.exports = app => {
         ...req.body,
         image: '/images/' + file
       })
-      const partners = await Partner.findAll()
+      const partners = await Partner.findAll({ where: { visible: 1 } })
       app.locals.io.emit('partners', partners)
       log.info(`Partner ${partner.name} created`)
       return res

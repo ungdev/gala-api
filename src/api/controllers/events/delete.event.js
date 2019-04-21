@@ -20,6 +20,8 @@ module.exports = app => {
       log.info(`Event ${event.name} deleted`)
       await event.destroy()
       fs.unlinkSync(path.join(__dirname, '../../../..', event.image))
+      const events = await Event.findAll({ where: { visible: 1 } })
+      app.locals.io.emit('events', events)
       return res
         .status(200)
         .json(event)

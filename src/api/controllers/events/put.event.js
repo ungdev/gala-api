@@ -64,7 +64,8 @@ module.exports = app => {
         const partner = await Partner.findByPk(req.body.partner)
         if (partner) await event.setPartner(partner)
       }
-
+      const events = await Event.findAll({ where: { visible: 1 } })
+      app.locals.io.emit('events', events)
       log.info(`Event ${event.name} modified`)
       return res
         .status(200)
