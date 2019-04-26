@@ -28,16 +28,20 @@ module.exports = app => {
           )
         : false
     console.log(
-      `Message en provenance de ${event.user.screen_name}: "${event.text}"`
+      `Message en provenance de ${event.user.name} ${
+        event.user.screen_name
+      }: "${event.text}"`
     )
+    console.log(event.user)
     await Tweet.create({
       user: event.user.screen_name,
+      userName: event.user.name,
       text: removeAccents(event.text).toLowerCase(),
       visible: !found
     })
     if (found) {
       console.log('TWEET FILTERED')
-      const text = `Le tweet ${event.text} envoyé par ${
+      const text = `Le tweet ${event.text} envoyé par ${event.user.name} ${
         event.user.screen_name
       } a été filtré car il contient le mot ${found.word}.`
       axios.post(
@@ -55,4 +59,5 @@ module.exports = app => {
     console.log('Twitter error :')
     console.log(error)
   })
+  console.log('TWITTER SUCCESSFULLY SETUP')
 }

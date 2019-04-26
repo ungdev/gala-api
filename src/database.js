@@ -4,13 +4,22 @@ const env = require('./env')
 const log = require('./api/utils/log')(module)
 
 module.exports = async function database() {
-  const database = `${env.DB_TYPE}://${env.DB_USER}:${env.DB_PASSWORD}@${env.DB_HOST}:${env.DB_PORT}/${env.DB_NAME}`
-  log.info(`Trying to connect to database : ${env.DB_TYPE}://******:******@${env.DB_HOST}:${env.DB_PORT}/${env.DB_NAME}`)
+  const database = `${env.DB_TYPE}://${env.DB_USER}:${env.DB_PASSWORD}@${
+    env.DB_HOST
+  }:${env.DB_PORT}/${env.DB_NAME}`
+  log.info(
+    `Trying to connect to database : ${env.DB_TYPE}://******:******@${
+      env.DB_HOST
+    }:${env.DB_PORT}/${env.DB_NAME}`
+  )
   const sequelize = new Sequelize(database, {
     operatorsAliases: Sequelize.Op,
-    logging: sql => log.debug(sql)
+    logging: sql => log.debug(sql),
+    define: {
+      charset: 'utf8mb4'
+    }
   })
-
+  sequelize.query("SET NAMES utf8mb4;");
   process.on('SIGINT', async function() {
     try {
       await sequelize.close()
