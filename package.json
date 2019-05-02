@@ -29,7 +29,6 @@
     "nodemon": "^1.18.10",
     "pm2": "^2.10.4",
     "prettier": "^1.13.4",
-    "remove-accents": "^0.4.2",
     "sequelize": "^5.3.1",
     "simple-oauth2": "^2.2.1",
     "socket.io": "^2.2.0",
