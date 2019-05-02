@@ -17,6 +17,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true
     },
-    visible: { type: DataTypes.BOOLEAN, defaultValue: true }
+    visible: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    },
+    index: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
   })
 }

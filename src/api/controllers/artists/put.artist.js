@@ -10,8 +10,8 @@ const fs = require('fs')
 module.exports = app => {
   app.put('/artists/:id', [
     check('name')
-      .isString()
-      .exists(),
+      .exists()
+      .isString(),
     check('link')
       .exists()
       .isString(),

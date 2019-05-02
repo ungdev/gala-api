@@ -11,7 +11,7 @@ module.exports = app => {
           visible: true
         },
         order: [
-          ['name', 'ASC']
+          ['index', 'ASC']
         ]
       })
 
@@ -30,7 +30,7 @@ module.exports = app => {
     try {
       const artists = await Artist.findAll({ 
         order: [
-          ['name', 'ASC']
+          ['index', 'ASC']
         ]
       })
 

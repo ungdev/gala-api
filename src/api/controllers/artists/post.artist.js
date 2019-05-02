@@ -34,8 +34,16 @@ module.exports = app => {
       fs.copyFileSync(oldfile, newfile)
       fs.unlinkSync(oldfile)
 
-      let artist = await Artist.create({ ...req.body, image: '/images/' + file })
+      const artists = await Artist.findAll()
+
+      let artist = await Artist.create({
+        ...req.body,
+        image: '/images/' + file,
+        index: artists.length
+      })
+      
       log.info(`Artist ${artist.name} created`)
+      
       return res
         .status(200)
         .json(artist)
