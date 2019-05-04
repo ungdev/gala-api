@@ -17,6 +17,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true
     },
+    eventDate: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    eventPlace: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: ''
+    },
     visible: {
       type: DataTypes.BOOLEAN,
       defaultValue: true

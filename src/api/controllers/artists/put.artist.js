@@ -18,6 +18,12 @@ module.exports = app => {
     check('image')
       .exists()
       .isString(),
+    check('eventDate')
+      .optional()
+      .isString(),
+    check('eventPlace')
+      .optional()
+      .isString(),
     check('visible')
       .optional()
       .isBoolean(),
