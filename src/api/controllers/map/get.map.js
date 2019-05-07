@@ -285,14 +285,19 @@ module.exports = app => {
               ]
             },
             properties: {
-              name: 'C104 : EAT RUTT VEGAS',
+              name: 'C104 : EAT RUTT VEGAS / C102 : EAT Very Bad PMOM',
               description:
-                "Le rugby, c'est l'histoire d'un ballon avec des copains autour et quand il n'y a plus de ballon, il reste les copains. Tu aimes la fête et les copains, tu sais où nous trouver !",
+                "Le rugby, c'est l'histoire d'un ballon avec des copains autour et quand il n'y a plus de ballon, il reste les copains. Tu aimes la fête et les copains, tu sais où nous trouver ! / Pour passer un Gala extraordinaire, venez nous rejoindre au sein de notre EAT pour vous retrouver dans l'ambiance de Very Bad Trip avec bien sur la convivialité et la bonne ambiance reconnu mondialement des PMOMs.",
+
               selling: [
                 'Suze Cocktail',
                 'Chouffe',
                 'Faro',
-                'Saint-Martin Ambrée'
+                'Saint-Martin Ambrée',
+                '/',
+                'Buzz Fick',
+                'Deli Red',
+                'Terrano Blanche'
               ],
               activity: 'Roulette Folle'
             }
