@@ -93,11 +93,12 @@ module.exports = app => {
               ]
             },
             properties: {
-              name: "[1er] M104 : EAT Innov'UTT - Fal'UTT",
-              description: "Plus d'informations prochainement",
-              quote:
-                "Pense à toutes les merveilles qui t'entourent et soit heureux.",
-              author: ''
+              name: "[1er] M104 : EAT Le Cabaret des Fal'Innov'UTT",
+              description:
+                "Tous pensaient cela impossible, mais pourtant les voilà ! Innov'UTT et fal'UTT réunis pour ce gala, pour vous !",
+              selling: ['Cocktail Cacibel', 'Chouffe', 'Faro'],
+
+              activity: 'Jeux de cartes'
             }
           },
           {
@@ -243,8 +244,16 @@ module.exports = app => {
               ]
             },
             properties: {
-              name: 'Elvis Stage + Bar Cocotte / ISM / Chutt de vers',
-              description: "Plus d'informations prochainement"
+              name: 'Bar Elvis Stage',
+              description:
+                "Entrez dans l'atmosphère greco-romaine de notre bar, nous allons vous plonger dans l'ambiance d'un des hôtels les plus connus au monde : Le Caesar Palace ! Les fontaines de bières vous rappelleront les thermes romains avec la douce Blanche de Namur pour vous désaltérer. Rendez hommage à Bachus en profitant de la musique enivrante et laissez celle-ci être la muse de votre soirée !",
+              selling: [
+                'Cocktail Viridi Malum',
+                'Chouffe',
+                'Deli Red',
+                'Terrano Blanche'
+              ],
+              activity: 'Medium - Osselets Romains'
             }
           },
           {
@@ -276,8 +285,16 @@ module.exports = app => {
               ]
             },
             properties: {
-              name: 'EAT PMOM et RUTT',
-              description: "Plus d'informations prochainement"
+              name: 'C104 : EAT RUTT VEGAS',
+              description:
+                "Le rugby, c'est l'histoire d'un ballon avec des copains autour et quand il n'y a plus de ballon, il reste les copains. Tu aimes la fête et les copains, tu sais où nous trouver !",
+              selling: [
+                'Suze Cocktail',
+                'Chouffe',
+                'Faro',
+                'Saint-Martin Ambrée'
+              ],
+              activity: 'Roulette Folle'
             }
           },
           {
@@ -464,8 +481,11 @@ module.exports = app => {
               ]
             },
             properties: {
-              name: '[1er] EAT ATECAP + Salle de balle',
-              description: "Plus d'informations prochainement"
+              name: 'B105 EAT Dream Night + Salle de bal',
+              description:
+                "La fanfare et l'ATECAP vous proposent un EAT des plus exotiques ! Venez nous retrouver pour vous déhancher en écoutant de la musique de qualité, vous ressourcer en sirotant bières, softs et cocktails fruités et vous amuser avec un Water-Pong, une roulette géante et d'autres festivités. Quel programme alléchant… A toute suite !",
+              selling: ["Cocktail l'EXO", 'Maredsous', 'Terrano Blanche'],
+              activity: 'WaterPong'
             }
           },
           {
@@ -508,8 +528,10 @@ module.exports = app => {
               ]
             },
             properties: {
-              name: 'EAT ASANUTT / Amicale',
-              description: "Plus d'informations prochainement"
+              name: 'Bar Insaisissables',
+              description:
+                "Le personnel de l'UTT et l'ASANUTT s'associent pour retrouver votre vie étudiante.",
+              selling: ['Plateau de fromage et de charcuterie', 'Vins']
             }
           },
           {
@@ -604,8 +626,10 @@ module.exports = app => {
               ]
             },
             properties: {
-              name: 'UNG',
-              description: "Plus d'information à l'approche du Gala..."
+              name: 'Bar Golden Nugget',
+              description:
+                "Pars à la conquête de l'ouest dans notre bar cowboy ! Tu pourras goûter à des bières venues tout droit des contrées lointaines de Belgique telles que la Delirium Red et la Maredsous ! Tu auras aussi l'occasion de tester un cocktail bien de chez nous, el famoso kir royal !",
+              selling: ['Kir Royal', 'Deli Red', 'Maredsous']
             }
           }
         ]
