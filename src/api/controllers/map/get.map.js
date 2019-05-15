@@ -36,7 +36,8 @@ module.exports = app => {
             },
             properties: {
               name: 'Stand prévention ANPAA',
-              description: "Plus d'informations à l'approche du Gala",
+              description:
+                "Passez une soirée en toute sécurité avec l'ANPAA. Du matériel de prévention est disponible sur le stand : éthylotests, couvercles pour écocups, bouchons d'oreille, préservatifs.",
               quote: 'Demain il sera 24h trop tard.',
               author: 'Timothée Toury'
             }
@@ -74,7 +75,7 @@ module.exports = app => {
             properties: {
               name: 'Vestiaire et espace repos SAM',
               description:
-                "Vous pouvez déposer ici vos affaires gratuitement. Ne perdez pas votre ticket ! (La technique c'est de le prendre en photo ;) )",
+                "Vous pouvez déposer ici vos affaires gratuitement. Ne perdez pas votre ticket ! (La technique c'est de le prendre en photo ;) L'espace repos SAM vous permet de dormir un petit moment pour reprendre la route en toute sécurité !",
               quote: "La pudeur est née avec l'invention du vêtement.",
               author: 'Mark Twain'
             }
@@ -96,9 +97,16 @@ module.exports = app => {
               name: "[1er] M104 : EAT Le Cabaret des Fal'Innov'UTT",
               description:
                 "Tous pensaient cela impossible, mais pourtant les voilà ! Innov'UTT et fal'UTT réunis pour ce gala, pour vous !",
-              selling: ['Cocktail Cacibel', 'Chouffe', 'Faro'],
+              selling: [
+                'Cocktail Cacibel',
+                'Chouffe',
+                'Faro',
+                'Champagne',
+                "Pin's"
+              ],
 
-              activity: 'Jeux de cartes'
+              activity:
+                'Golden Stage : venez retrouver les plus grands DJs étudiants. HYXY à 22h35 - Antoto à 00h - Quentin Ltl à 1h - Stormer à 2h'
             }
           },
           {
@@ -125,7 +133,8 @@ module.exports = app => {
             },
             properties: {
               name: 'Taureau mécanique',
-              description: "C'est partit pour le rodéo !",
+              description:
+                "C'est partit pour le rodéo ! Battrez-vous le record ?",
               quote: 'Demain il sera 24h trop tard.',
               author: 'Timothée Toury'
             }
@@ -229,7 +238,7 @@ module.exports = app => {
             properties: {
               name: 'Caesar Palace (scène principale)',
               description:
-                'Scène principale où se produieront les plus grands artistes du Gala.',
+                "Scène principale où se produiront les plus grands artistes du Gala. FRH & Léo L'AS à 21h30 - Tez Cadey à 22h30 - French Fuse à 00h - Jay Style à 1h15 - Salut C'est Cool à 2h30",
               quote:
                 "Les danses modernes ? Ce n'est plus de la danse, c'est de la décadence.",
               author: 'Alfred Capus'
@@ -251,9 +260,12 @@ module.exports = app => {
                 'Cocktail Viridi Malum',
                 'Chouffe',
                 'Deli Red',
-                'Terrano Blanche'
+                'Terrano Blanche',
+                'Saint-Martin Ambrée',
+                'Champagne'
               ],
-              activity: 'Medium - Osselets Romains'
+              activity:
+                "Une ambiance rock pour toute la soirée : Prol'UTT à 20h30 - Big Band UTT à 21h45 - Wazaaa à 23h - Ceci Dit à 0h45 - KMGB à 2h - Max Motion à 3h30"
             }
           },
           {
@@ -285,7 +297,7 @@ module.exports = app => {
               ]
             },
             properties: {
-              name: 'C104 : EAT RUTT VEGAS / C102 : EAT Very Bad PMOM',
+              name: 'RUTT VEGAS / Very Bad PMOM',
               description:
                 "Le rugby, c'est l'histoire d'un ballon avec des copains autour et quand il n'y a plus de ballon, il reste les copains. Tu aimes la fête et les copains, tu sais où nous trouver ! / Pour passer un Gala extraordinaire, venez nous rejoindre au sein de notre EAT pour vous retrouver dans l'ambiance de Very Bad Trip avec bien sur la convivialité et la bonne ambiance reconnu mondialement des PMOMs.",
 
@@ -297,7 +309,8 @@ module.exports = app => {
                 '/',
                 'Buzz Fick',
                 'Deli Red',
-                'Terrano Blanche'
+                'Terrano Blanche',
+                'Champagne'
               ],
               activity: 'Roulette Folle'
             }
@@ -316,8 +329,15 @@ module.exports = app => {
               ]
             },
             properties: {
-              name: 'Foodtruck burger',
-              description: "Plus d'informations prochainement"
+              name: 'La Carte Urban Foodtruck',
+              description: 'Un petit creux ? Venez vous restaurer !',
+
+              selling: [
+                'Frites',
+                'Salade végétarienne',
+                'Burger boeuf',
+                'Burritos'
+              ]
             }
           },
           {
@@ -330,7 +350,8 @@ module.exports = app => {
             },
             properties: {
               name: 'Salle de jeux casino',
-              description: "Plus d'informations prochainement"
+              description:
+                'Rien ne va plus ! Faîtes vos jeux ! Montrer vos talents au poker, blackjack et roulette.'
             }
           },
           {
@@ -347,9 +368,17 @@ module.exports = app => {
               ]
             },
             properties: {
-              name:
-                "Foodtrucks : crêpe d'ELOOP, Hot Dogs de Franck et Lahmacun",
-              description: "Plus d'informations prochainement"
+              name: "Foodtrucks : Crêp d'Elo & l'Atelier du Lahmacun",
+              description: 'Un petit creux ? Venez vous sustanter !',
+
+              selling: [
+                'Crêpes au sucre/confiture de fraise/nutella',
+                'Crêpes à la crème fraîche, emmentale et jambon',
+                'Crêpes à la crème fraîche, jambon et oeuf',
+
+                'Lahmacun',
+                'Frites'
+              ]
             }
           },
           {
@@ -366,8 +395,19 @@ module.exports = app => {
               ]
             },
             properties: {
-              name: 'Foodtruck Healthy',
-              description: "Plus d'informations prochainement"
+              name: "Healthy Foodtruck & Franck's Dinner",
+              description: "Un petit creux ? C'est par ici !",
+
+              selling: [
+                'Burger poulet',
+                'Burger saumon',
+                'Buddha bowl poulet/saumon/falafel',
+                'Gâteau de fleurs vegan',
+                'Tiramisu aux biscuits roses',
+                'Jus détox',
+                'Hot-dog',
+                'Nachos'
+              ]
             }
           },
           {
@@ -489,7 +529,7 @@ module.exports = app => {
               name: 'B105 EAT Dream Night + Salle de bal',
               description:
                 "La fanfare et l'ATECAP vous proposent un EAT des plus exotiques ! Venez nous retrouver pour vous déhancher en écoutant de la musique de qualité, vous ressourcer en sirotant bières, softs et cocktails fruités et vous amuser avec un Water-Pong, une roulette géante et d'autres festivités. Quel programme alléchant… A toute suite !",
-              selling: ["Cocktail l'EXO", 'Maredsous', 'Terrano Blanche'],
+              selling: ["Cocktail l'EXO", 'Maredsous', 'Faro', 'Champagne'],
               activity: 'WaterPong'
             }
           },
@@ -512,7 +552,8 @@ module.exports = app => {
             },
             properties: {
               name: 'Stand photo argentique et chapelle',
-              description: "Plus d'informations prochainement"
+              description:
+                "Venez immortaliser cette magnifique soirée sous les appareils photos l'association Argentique ! Une envie de mariage ? Vous pourrez également immortaliser le plus beau jour de votre vie !"
             }
           },
           {
@@ -535,8 +576,12 @@ module.exports = app => {
             properties: {
               name: 'Bar Insaisissables',
               description:
-                "Le personnel de l'UTT et l'ASANUTT s'associent pour retrouver votre vie étudiante.",
-              selling: ['Plateau de fromage et de charcuterie', 'Vins']
+                "Le personnel de l'UTT et l'ASANUTT s'associent pour vous faire retrouver votre vie étudiante.",
+              selling: [
+                'Plateau de fromage et de charcuterie',
+                'Vins',
+                'Champagne'
+              ]
             }
           },
           {
@@ -555,7 +600,17 @@ module.exports = app => {
             properties: {
               name: 'Bar inter école',
               description:
-                "Bar géré par les différentes écoles de l'agglomération troyenne"
+                "Bar géré par les différentes écoles de l'agglomération troyenne, vous y recontrerez de nouvelles têtes !",
+
+              selling: [
+                'Delirium Red',
+                'Chouffe',
+                'Faro',
+                'Terrano Blanche',
+                'Terrano Blonde',
+                'Maredsous',
+                'Saint-Martin Ambrée'
+              ]
             }
           },
           {
@@ -634,7 +689,7 @@ module.exports = app => {
               name: 'Bar Golden Nugget',
               description:
                 "Pars à la conquête de l'ouest dans notre bar cowboy ! Tu pourras goûter à des bières venues tout droit des contrées lointaines de Belgique telles que la Delirium Red et la Maredsous ! Tu auras aussi l'occasion de tester un cocktail bien de chez nous, el famoso kir royal !",
-              selling: ['Kir Royal', 'Deli Red', 'Maredsous']
+              selling: ['Kir Royal', 'Delirium Red', 'Maredsous']
             }
           }
         ]
