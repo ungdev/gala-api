@@ -24,6 +24,12 @@ module.exports = app => {
         ? censoreds.find(censored =>
             removeAccents(event.text)
               .toLowerCase()
+              .includes(removeAccents(censored.word).toLowerCase()) ||
+              removeAccents(event.user.screen_name)
+              .toLowerCase()
+              .includes(removeAccents(censored.word).toLowerCase()) ||
+              removeAccents(event.user.name)
+              .toLowerCase()
               .includes(removeAccents(censored.word).toLowerCase())
           )
         : false
