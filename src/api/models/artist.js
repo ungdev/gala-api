@@ -1,9 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
-  const Artist = sequelize.define("Artist", {
+  return sequelize.define('artist', {
     id: {
-      primaryKey: true,
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true
     },
     name: {
       type: DataTypes.STRING,
@@ -18,11 +18,5 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     },
     visible: { type: DataTypes.BOOLEAN, defaultValue: true }
-  });
-  Artist.associate = models => {
-    const { Event } = models;
-    Event.belongsTo(Artist);
-    Artist.hasMany(Event);
-  };
-  return Artist;
-};
+  })
+}

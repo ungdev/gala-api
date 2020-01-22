@@ -20,6 +20,7 @@ module.exports = app => {
         fs.unlinkSync(path.join(__dirname, '../../../../temp', file))
         return res
           .status(200)
+          .json('OK')
           .end()
       } else {
         files = fs.readdirSync(path.join(__dirname, '../../../../images'))
@@ -28,10 +29,12 @@ module.exports = app => {
           return res
             .status(200)
             .json('NOT_TEMP')
+            .end()
       }
       return res
         .status(404)
         .json({ error: 'NOT_FOUND' })
+        .end()
     } catch (err) {
       errorHandler(err, res)
     }

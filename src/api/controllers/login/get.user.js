@@ -19,6 +19,7 @@ module.exports = app => {
       res
         .status(200)
         .json(pick(req.user, ['id', 'full_name', 'permissions']))
+        .end()
     } catch (err) {
       errorHandler(err, res)
     }
