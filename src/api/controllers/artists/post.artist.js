@@ -40,7 +40,7 @@ module.exports = app => {
       fs.copyFileSync(oldfile, newfile)
       fs.unlinkSync(oldfile)
 
-      const artists = await Artist.findAll()
+      const artists = await Artist.findAll({attributes: ['id']})
 
       let artist = await Artist.create({
         ...req.body,
@@ -53,7 +53,6 @@ module.exports = app => {
       return res
         .status(200)
         .json(artist)
-        .end()
     } catch (err) {
       errorHandler(err, res)
     }

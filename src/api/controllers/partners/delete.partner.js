@@ -19,7 +19,6 @@ module.exports = app => {
         return res
           .status(404)
           .json({ error: 'NOT_FOUND' })
-          .end()
       log.info(`Partner ${partner.name} deleted`)
       await partner.destroy()
       fs.unlinkSync(path.join(__dirname, '../../../..', partner.image))
@@ -27,7 +26,6 @@ module.exports = app => {
       app.locals.io.emit('partners', partners)
       return res
         .status(200)
-        .json('OK')
         .end()
     } catch (err) {
       errorHandler(err, res)

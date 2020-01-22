@@ -26,7 +26,6 @@ module.exports = app => {
       return res
         .status(200)
         .json(censored)
-        .end()
     } catch (err) {
       errorHandler(err, res)
     }

@@ -17,14 +17,12 @@ module.exports = app => {
         return res
           .status(404)
           .json({ error: 'NOT_FOUND' })
-          .end()
       log.info(`Censore ${censored.word} deleted`)
       await censored.destroy()
       const censoreds = await Censored.findAll({ order: [['word', 'ASC']] })
       app.locals.io.emit('censoreds', censoreds)
       return res
         .status(200)
-        .json('OK')
         .end()
     } catch (err) {
       errorHandler(err, res)

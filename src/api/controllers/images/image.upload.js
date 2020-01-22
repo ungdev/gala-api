@@ -50,14 +50,6 @@ const storage = multer.diskStorage({
   }
 })
 const upload = multer({ storage }).single('file')
-/**
- * POST /images
- *
- * Body :
- *
- * { auth, name }
- *
- */
 module.exports = app => {
   app.post('/images', async (req, res) => {
     try {
@@ -66,7 +58,6 @@ module.exports = app => {
           return res
             .status(400)
             .json({ error })
-            .end()
         } else {
           return res.status(200).end()
         }

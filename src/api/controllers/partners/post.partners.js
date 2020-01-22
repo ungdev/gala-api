@@ -47,7 +47,6 @@ module.exports = app => {
       return res
         .status(200)
         .json(partner)
-        .end()
     } catch (err) {
       errorHandler(err, res)
     }

@@ -694,6 +694,5 @@ module.exports = app => {
           }
         ]
       })
-      .end()
   })
 }

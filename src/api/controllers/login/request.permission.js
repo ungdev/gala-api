@@ -2,14 +2,8 @@ const isAuth = require('../../middlewares/isAuth')
 const errorHandler = require('../../utils/errorHandler')
 const log = require('../../utils/log')(module)
 const axios = require('axios')
-/**
- * GET /user
- *
- * Response:
- * {
- *    user: User
- * }
- */
+
+
 module.exports = app => {
   app.post('/request', [isAuth('user-fetch')])
 

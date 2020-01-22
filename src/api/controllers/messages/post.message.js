@@ -27,7 +27,6 @@ module.exports = app => {
       return res
         .status(200)
         .json(message)
-        .end()
     } catch (err) {
       errorHandler(err, res)
     }

@@ -1,10 +1,8 @@
 const errorHandler = require('../../utils/errorHandler')
 const path = require('path')
 const fs = require('fs')
-/**
- * GET /images/:name
- *
- */
+
+
 module.exports = app => {
   app.get('/images/:name', async (req, res) => {
     try {

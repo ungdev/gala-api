@@ -42,7 +42,6 @@ module.exports = app => {
       return res
         .status(200)
         .json(switchArtist.id)
-        .end()
     } catch (err) {
       errorHandler(err, res)
     }

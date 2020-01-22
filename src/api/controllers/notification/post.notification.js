@@ -51,7 +51,6 @@ module.exports = app => {
       return res
         .status(400)
         .json(error.response.data.errors)
-        .end()
     }
     try {
       app.locals.io.emit('notification', req.body)

@@ -17,14 +17,12 @@ module.exports = app => {
         return res
           .status(404)
           .json({ error: 'NOT_FOUND' })
-          .end()
       log.info(`Message ${message.content} deleted`)
       await message.destroy()
       const messages = await Message.findAll({ order: [['createdAt', 'ASC']] })
       app.locals.io.emit('messages', messages)
       return res
         .status(200)
-        .json('OK')
         .end()
     } catch (err) {
       errorHandler(err, res)
