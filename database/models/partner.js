@@ -28,8 +28,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Partner.associate = models => {
-    Event.belongsTo(models.Partner);
-    models.Partner.hasMany(Event);
+    models.Event.belongsTo(Partner);
+    Partner.hasMany(models.Event);
   };
   return Partner;
 };
