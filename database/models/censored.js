@@ -1,13 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('permission', {
+  return sequelize.define('Censored', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
-    name: {
+    word: {
       type: DataTypes.STRING,
       allowNull: false
     },
+    level: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    }
   })
 }

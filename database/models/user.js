@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('user', {
+  const User = sequelize.define("User", {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -23,5 +23,14 @@ module.exports = (sequelize, DataTypes) => {
     token_expires: {
       type: DataTypes.STRING
     }
-  })
-}
+  });
+  User.associate = models => {
+    const { Permission, Message } = models;
+    Permission.belongsTo(User);
+    User.hasMany(Permission);
+
+    Message.belongsTo(User);
+    User.hasMany(Message);
+  };
+  return User;
+};

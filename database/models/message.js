@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('message', {
+  return sequelize.define('Message', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,

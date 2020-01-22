@@ -1,5 +1,5 @@
 const http = require('http')
-const database = require('./database')
+const database = require('../database/database')
 const main = require('./main')
 const socketio = require('socket.io')
 const env = require('../src/env')

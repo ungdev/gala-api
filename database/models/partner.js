@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('event', {
+  const Partner = sequelize.define("Partner", {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -9,19 +9,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    start: {
-      type: DataTypes.DATE,
-      allowNull: false
-    },
-    end: {
-      type: DataTypes.DATE,
-      allowNull: false
-    },
-    place: {
+    image: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    image: {
+    url: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -33,5 +25,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: true
     }
-  })
-}
+  });
+
+  Partner.associate = models => {
+    Event.belongsTo(models.Partner);
+    models.Partner.hasMany(Event);
+  };
+  return Partner;
+};
