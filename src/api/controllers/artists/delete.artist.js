@@ -16,14 +16,12 @@ module.exports = app => {
         return res
           .status(404)
           .json({ error: 'NOT_FOUND' })
-          .end()
       log.info(`Artist ${artist.name} deleted`)
       await artist.destroy()
       fs.unlinkSync(path.join(__dirname, '../../../..', artist.image))
       return res
         .status(200)
         .json(artist)
-        .end()
     } catch (err) {
       errorHandler(err, res)
     }

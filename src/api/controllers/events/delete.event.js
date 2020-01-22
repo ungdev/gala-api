@@ -16,14 +16,12 @@ module.exports = app => {
         return res
           .status(404)
           .json({ error: 'NOT_FOUND' })
-          .end()
       log.info(`Event ${event.name} deleted`)
       await event.destroy()
       fs.unlinkSync(path.join(__dirname, '../../../..', event.image))
       return res
         .status(200)
         .json(event)
-        .end()
     } catch (err) {
       errorHandler(err, res)
     }
