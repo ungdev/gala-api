@@ -11,14 +11,13 @@ module.exports = app => {
           visible: true
         },
         order: [
-          ['name', 'ASC']
+          ['index', 'ASC']
         ]
       })
 
       return res
         .status(200)
         .json(artists)
-        .end()
     } catch (err) {
       errorHandler(err, res)
     }
@@ -30,14 +29,13 @@ module.exports = app => {
     try {
       const artists = await Artist.findAll({ 
         order: [
-          ['name', 'ASC']
+          ['index', 'ASC']
         ]
       })
 
       return res
         .status(200)
         .json(artists)
-        .end()
     } catch (err) {
       errorHandler(err, res)
     }

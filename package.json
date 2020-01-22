@@ -1,6 +1,6 @@
 {
   "name": "api.gala.uttnetgroup.fr",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
@@ -24,22 +24,22 @@
     "morgan": "^1.9.0",
     "multer": "^1.4.1",
     "mustache": "^3.0.1",
-    "mysql2": "^1.5.3",
+    "mysql2": "^2.1.0",
     "nodemailer": "^5.1.1",
     "nodemon": "^1.18.10",
-    "pm2": "^2.10.4",
     "prettier": "^1.13.4",
-    "sequelize": "^4.37.10",
+    "remove-accents": "^0.4.2",
+    "sequelize": "^5.21.3",
+    "sequelize-cli": "^5.5.1",
     "simple-oauth2": "^2.2.1",
     "socket.io": "^2.2.0",
+    "twitter": "^1.7.1",
     "uuid": "^3.2.1",
     "winston": "^2.4.2"
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=development DEBUG=api.gala.uttnetgroup.fr:* nodemon ./bin/start.js",
     "start": "node ./bin/start.js",
-    "serve": "pm2 start ./bin/start.js -i max --wait-ready --name api.gala.uttnetgroup.fr",
-    "reload": "pm2 reload api.gala.uttnetgroup.fr --update-env",
-    "lint": "prettier --single-quote --print-width 100 --tab-width 2 --no-semi --write \"{src,bin}/**/*.js\""
+    "migrate": "npx sequelize-cli db:migrate"
   }
 }

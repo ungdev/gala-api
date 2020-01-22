@@ -46,12 +46,13 @@ module.exports = app => {
       } else {
         await partner.update(req.body)
       }
+      const partners = await Partner.findAll({ where: { visible: 1 } })
+      app.locals.io.emit('partners', partners)
 
       log.info(`Partner ${partner.name} modified`)
       return res
         .status(200)
         .json(partner)
-        .end()
     } catch (err) {
       errorHandler(err, res)
     }

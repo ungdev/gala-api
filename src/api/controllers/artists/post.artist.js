@@ -18,6 +18,12 @@ module.exports = app => {
     check('link')
       .exists()
       .isString(),
+    check('eventDate')
+      .optional()
+      .isString(),
+    check('eventPlace')
+      .optional()
+      .isString(),
     check('visible')
       .optional()
       .isBoolean(),
@@ -34,12 +40,19 @@ module.exports = app => {
       fs.copyFileSync(oldfile, newfile)
       fs.unlinkSync(oldfile)
 
-      let artist = await Artist.create({ ...req.body, image: '/images/' + file })
+      const artists = await Artist.findAll({attributes: ['id']})
+
+      let artist = await Artist.create({
+        ...req.body,
+        image: '/images/' + file,
+        index: artists.length
+      })
+      
       log.info(`Artist ${artist.name} created`)
+      
       return res
         .status(200)
         .json(artist)
-        .end()
     } catch (err) {
       errorHandler(err, res)
     }

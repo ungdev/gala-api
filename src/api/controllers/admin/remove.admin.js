@@ -11,17 +11,15 @@ module.exports = app => {
     const { Permission } = app.locals.models
     try {
       let permission = await Permission.findOne({
-        where: { userId: req.params.id }
+        where: { UserId: req.params.id }
       })
       if (!permission)
         return res
           .status(404)
           .json({ error: 'NOT_FOUND' })
-          .end()
       await permission.destroy()
       return res
         .status(200)
-        .json('OK')
         .end()
     } catch (err) {
       errorHandler(err, res)

@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('partner', {
+  return sequelize.define('Artist', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -11,19 +11,28 @@ module.exports = (sequelize, DataTypes) => {
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
-    url: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    description: {
+    link: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    eventDate: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    eventPlace: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: ''
     },
     visible: {
       type: DataTypes.BOOLEAN,
       defaultValue: true
+    },
+    index: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   })
 }

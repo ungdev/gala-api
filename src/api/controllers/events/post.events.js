@@ -30,6 +30,9 @@ module.exports = app => {
     check('artist')
       .optional()
       .isString(),
+    check('partner')
+      .optional()
+      .isString(),
     check('visible')
       .optional()
       .isBoolean(),
@@ -37,7 +40,7 @@ module.exports = app => {
   ])
   app.post('/events', [isAuth('events-create'), isAdmin('events-create')])
   app.post('/events', async (req, res) => {
-    const { Event, Artist } = app.locals.models
+    const { Event, Artist, Partner } = app.locals.models
     try {
       const files = fs.readdirSync(path.join(__dirname, '../../../../temp'))
       let file = files.find(f => f.indexOf(req.body.image) !== -1)
@@ -47,15 +50,20 @@ module.exports = app => {
       fs.unlinkSync(oldfile)
 
       let event = await Event.create({ ...req.body, image: '/images/' + file })
-      if(req.body.artist) {
+      if (req.body.artist) {
         const artist = await Artist.findByPk(req.body.artist)
-        if(artist) await event.setArtist(artist)
+        if (artist) await event.setArtist(artist)
       }
+      if (req.body.partner) {
+        const partner = await Partner.findByPk(req.body.partner)
+        if (partner) await event.setPartner(partner)
+      }
+      const events = await Event.findAll({ where: { visible: 1 } })
+      app.locals.io.emit('events', events)
       log.info(`Event ${event.name} created`)
       return res
         .status(200)
         .json(event)
-        .end()
     } catch (err) {
       errorHandler(err, res)
     }

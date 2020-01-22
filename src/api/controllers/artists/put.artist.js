@@ -10,13 +10,19 @@ const fs = require('fs')
 module.exports = app => {
   app.put('/artists/:id', [
     check('name')
-      .isString()
-      .exists(),
+      .exists()
+      .isString(),
     check('link')
       .exists()
       .isString(),
     check('image')
       .exists()
+      .isString(),
+    check('eventDate')
+      .optional()
+      .isString(),
+    check('eventPlace')
+      .optional()
       .isString(),
     check('visible')
       .optional()
@@ -45,7 +51,6 @@ module.exports = app => {
       return res
         .status(200)
         .json(artist)
-        .end()
     } catch (err) {
       errorHandler(err, res)
     }

@@ -12,18 +12,15 @@ module.exports = app => {
         return res
           .status(404)
           .json({ error: 'NOT_FOUND' })
-          .end()
       if (user.permissions.find(permission => permission.name === 'admin'))
         return res
           .status(400)
           .json({ error: 'ALREADY_ADMIN' })
-          .end()
       let permission = await Permission.create({ name: 'admin' })
       await permission.setUser(user)
       return res
         .status(200)
         .json(user)
-        .end()
     } catch (err) {
       errorHandler(err, res)
     }

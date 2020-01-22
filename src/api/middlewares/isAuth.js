@@ -14,7 +14,6 @@ module.exports = route => async (req, res, next) => {
     return res
       .status(401)
       .json({ error: 'TOO_LATE' })
-      .end()
   const auth = req.get('Authorization')
   if (!auth || auth.length === 0) {
     log.warn('Missing token', { route })
@@ -22,7 +21,6 @@ module.exports = route => async (req, res, next) => {
     return res
       .status(401)
       .json({ error: 'NO_TOKEN' })
-      .end()
   }
   const token = auth.split('Basic ')[1]
 
@@ -32,7 +30,6 @@ module.exports = route => async (req, res, next) => {
     return res
       .status(401)
       .json({ error: 'NO_TOKEN' })
-      .end()
   }
 
   try {
@@ -50,6 +47,5 @@ module.exports = route => async (req, res, next) => {
     return res
       .status(401)
       .json({ error: 'INVALID_TOKEN' })
-      .end()
   }
 }

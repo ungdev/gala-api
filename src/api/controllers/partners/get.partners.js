@@ -18,7 +18,6 @@ module.exports = app => {
       return res
         .status(200)
         .json(partners)
-        .end()
     } catch (err) {
       errorHandler(err, res)
     }
@@ -37,7 +36,6 @@ module.exports = app => {
       return res
         .status(200)
         .json(partners)
-        .end()
     } catch (err) {
       errorHandler(err, res)
     }
