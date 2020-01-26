@@ -9,12 +9,12 @@ module.exports = app => {
     try {
       let users = await User.findAll({ include: [Permission] })
       users = users.map(user => {
-        let { permissions } = user
-        if (permissions) permissions = permissions.map(p => p.name)
+        let { Permissions } = user
+        if (Permissions) Permissions = Permissions.map(p => p.name)
         return {
           id: user.id,
           full_name: user.full_name,
-          permissions
+          Permissions
         }
       })
 

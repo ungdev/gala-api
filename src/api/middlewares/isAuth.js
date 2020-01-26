@@ -38,7 +38,7 @@ module.exports = route => async (req, res, next) => {
     const user = await User.findByPk(decoded.id, {
       include: [{ model: Permission, attributes: ['name'] }]
     })
-    user.permissions = user.permissions.map(permission => permission.name)
+    user.Permissions = user.Permissions.map(permission => permission.name)
     req.user = user
     next()
   } catch (err) {

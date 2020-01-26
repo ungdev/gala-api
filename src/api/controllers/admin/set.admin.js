@@ -12,7 +12,7 @@ module.exports = app => {
         return res
           .status(404)
           .json({ error: 'NOT_FOUND' })
-      if (user.permissions.find(permission => permission.name === 'admin'))
+      if (user.Permissions.find(permission => permission.name === 'admin'))
         return res
           .status(400)
           .json({ error: 'ALREADY_ADMIN' })

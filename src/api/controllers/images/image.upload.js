@@ -31,7 +31,7 @@ const storage = multer.diskStorage({
         return
       }
 
-      if (!user.permissions.find(p => p.name === 'admin')) {
+      if (!user.Permissions.find(p => p.name === 'admin')) {
         log.warn('Tryed to upload an image but is not admin')
         cb('NOT_ADMIN', null)
         return

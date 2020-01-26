@@ -3,8 +3,8 @@ const log = require('../utils/log')(module)
 module.exports = route => async (req, res, next) => {
   if (
     req.user &&
-    req.user.permissions &&
-    req.user.permissions.find(permission => permission === 'admin')
+    req.user.Permissions &&
+    req.user.Permissions.find(permission => permission === 'admin')
   )
     next()
   else {
