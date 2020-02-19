@@ -17,7 +17,7 @@ module.exports = (app, io) => {
   app.use(cors())
   app.use(bodyParser.json())
   app.get('/', async (req, res) => {
-    return res.status(200).json('API UP').end()
+    return res.status(200).json('API UP')
   })
 
   app.use('/api/v1', controllers(app))

@@ -21,8 +21,14 @@ yarn
 ## Database
 
 ```
-# create the databse 'gala', should be in utf8 not utf8mb4, otherwise it wont work
-CREATE DATABASE gala CHARACTER SET utf8;
+# create the databse 'gala' and user gala
+CREATE DATABASE gala;
+CREATE user gala@localhost IDENTIFIED BY 'gala';
+grant all privileges on gala.* to gala@localhost;
+flush privileges
+
+# run migrations (before running server !!!) :
+sequelize db:migrate
 ```
 
 ## Configuration
