@@ -15,7 +15,7 @@ module.exports = app => {
     check('image')
       .exists()
       .isString(),
-    check('link')
+    check('links')
       .exists()
       .isString(),
     check('description')
@@ -34,7 +34,7 @@ module.exports = app => {
   ])
   app.post('/artists', [isAuth('artists-create'), isAdmin('artists-create')])
   app.post('/artists', async (req, res) => {
-    const { Artist } = app.locals.models
+    const { Artist, Link } = app.locals.models
     try {
       const files = fs.readdirSync(path.join(__dirname, '../../../../temp'))
       let file = files.find(f => f.indexOf(req.body.image) !== -1)
@@ -50,6 +50,14 @@ module.exports = app => {
         image: '/images/' + file,
         index: artists.length
       })
+      const links = JSON.parse(req.body.links)
+      await Promise.all(links.map(link => {
+        await Link.create({
+          type: link.type,
+          uri: link.uri,
+          ArtistId: artist.id,
+        })
+      }))
       
       log.info(`Artist ${artist.name} created`)
       
