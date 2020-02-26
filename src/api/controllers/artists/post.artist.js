@@ -18,6 +18,9 @@ module.exports = app => {
     check('link')
       .exists()
       .isString(),
+    check('description')
+      .exists()
+      .isString(),
     check('eventDate')
       .optional()
       .isString(),
