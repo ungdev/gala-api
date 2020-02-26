@@ -57,7 +57,7 @@ module.exports = app => {
       })
 
       let links = JSON.parse(req.body.links)
-      await Promise.all(links.map(link => {
+      await Promise.all(links.map(async link => {
         await Link.create({
           type: link.type,
           uri: link.uri,

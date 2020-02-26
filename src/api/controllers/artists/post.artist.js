@@ -51,7 +51,7 @@ module.exports = app => {
         index: artists.length
       })
       const links = JSON.parse(req.body.links)
-      await Promise.all(links.map(link => {
+      await Promise.all(links.map(async link => {
         await Link.create({
           type: link.type,
           uri: link.uri,
