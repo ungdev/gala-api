@@ -7,7 +7,7 @@ const iocontrollers = require('./api/iocontrollers')
 const error = require('./api/middlewares/error')
 const log = require('./api/utils/log')(module)
 
-module.exports = (app, io) => {
+module.exports = (app, io, express) => {
 
   app.use(
     morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'combined', { stream: log.stream })
@@ -20,7 +20,9 @@ module.exports = (app, io) => {
     return res.status(200).json('API UP').end()
   })
 
+  
   app.use('/api/v1', controllers(app))
+  app.use('/api/v1/uploads', express.static('uploads'))
   iocontrollers(app, io)
 
   app.use(error.converter)
