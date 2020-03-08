@@ -22,7 +22,6 @@ module.exports = (app, io, express) => {
 
   
   app.use('/api/v1', controllers(app))
-  app.use('/api/v1/uploads', express.static('uploads'))
   iocontrollers(app, io)
 
   app.use(error.converter)
