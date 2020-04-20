@@ -12,7 +12,10 @@ module.exports = app => {
     check('name')
       .exists()
       .isString(),
-    check('link')
+    check('links')
+      .exists()
+      .isString(),
+    check('description')
       .exists()
       .isString(),
     check('image')
@@ -31,7 +34,7 @@ module.exports = app => {
   ])
   app.put('/artists/:id', [isAuth('artists-modify'), isAdmin('artists-modify')])
   app.put('/artists/:id', async (req, res) => {
-    const { Artist } = app.locals.models
+    const { Artist, Link } = app.locals.models
     try {
       let artist = await Artist.findByPk(req.params.id)
       const files = fs.readdirSync(path.join(__dirname, '../../../../temp'))
@@ -46,6 +49,21 @@ module.exports = app => {
       } else {
         await artist.update(req.body)
       }
+
+      await Link.destroy({
+        where: {
+          ArtistId: artist.id
+        }
+      })
+
+      let links = JSON.parse(req.body.links)
+      await Promise.all(links.map(async link => {
+        await Link.create({
+          type: link.type,
+          uri: link.uri,
+          ArtistId: artist.id,
+        })
+      }))
 
       log.info(`Artist ${artist.name} modified`)
       return res

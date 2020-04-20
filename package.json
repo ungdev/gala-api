@@ -40,6 +40,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development DEBUG=api.gala.uttnetgroup.fr:* nodemon ./bin/start.js",
     "start": "node ./bin/start.js",
-    "migrate": "npx sequelize-cli db:migrate"
+    "migrate": "npx sequelize-cli db:migrate",
+    "seed": "npx sequelize-cli db:seed:all"
   }
 }

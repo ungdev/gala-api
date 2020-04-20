@@ -21,8 +21,17 @@ yarn
 ## Database
 
 ```
-# create the databse 'gala', should be in utf8 not utf8mb4, otherwise it wont work
-CREATE DATABASE gala CHARACTER SET utf8;
+# create the databse 'gala' and user gala
+CREATE DATABASE gala;
+CREATE user gala@localhost IDENTIFIED BY 'gala';
+grant all privileges on gala.* to gala@localhost;
+flush privileges
+
+# run migrations (before running server !!!) :
+yarn migrate
+
+# run seeds
+yarn seed
 ```
 
 ## Configuration
@@ -41,6 +50,21 @@ EMAIL_SMTP=
 EMAIL_FROM=Gala UTT <gala@utt.fr>
 # Set destination mail, where mail should go
 EMAIL_CONTACT_TO=Gala UTT <gala@utt.fr>
+```
+
+
+## Modify database
+
+```
+# If you want to edit the database (add/remove/update column, table, ...), you need to create a new migration. This will be like a commit for the database state, and it will be possible to roll back to a previous state of the structure (not data)
+
+sequelize migration:generate --name name_of_your_migration
+
+# Edit the migration generated in database/migrations/timestamp-name_of_your_migration.js
+# Than, run the migration to apply changes in the database :
+yarn migrate
+# note : this will not change you models, you will have to change them accordingly
+
 ```
 
 ## Setup etuutt login

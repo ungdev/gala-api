@@ -4,9 +4,10 @@ const isAdmin = require('../../middlewares/isAdmin')
 
 module.exports = app => {
   app.get('/artists', async (req, res) => {
-    const { Artist } = app.locals.models
+    const { Artist, Link } = app.locals.models
     try {
       const artists = await Artist.findAll({
+        include: [Link],
         where: {
           visible: true
         },
@@ -25,9 +26,10 @@ module.exports = app => {
 
   app.get('/artists/all', [isAuth('artists-get-all'), isAdmin('artists-get-all')])
   app.get('/artists/all', async (req, res) => {
-    const { Artist } = app.locals.models
+    const { Artist, Link } = app.locals.models
     try {
       const artists = await Artist.findAll({ 
+        include: [Link],
         order: [
           ['index', 'ASC']
         ]
