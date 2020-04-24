@@ -40,7 +40,7 @@ module.exports = app => {
   ])
   app.post('/events', [isAuth('events-create'), isAdmin('events-create')])
   app.post('/events', async (req, res) => {
-    const { Event, Artist, Partner } = app.locals.models
+    const { Event, Artist, Partner, Place } = app.locals.models
     try {
       const files = fs.readdirSync(path.join(__dirname, '../../../../temp'))
       let file = files.find(f => f.indexOf(req.body.image) !== -1)
@@ -57,6 +57,10 @@ module.exports = app => {
       if (req.body.partner) {
         const partner = await Partner.findByPk(req.body.partner)
         if (partner) await event.setPartner(partner)
+      }
+      if (req.body.place) {
+        const place = await Place.findByPk(req.body.place)
+        if (place) await event.setPlace(place)
       }
       const events = await Event.findAll({ where: { visible: 1 } })
       app.locals.io.emit('events', events)
