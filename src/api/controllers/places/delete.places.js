@@ -21,7 +21,6 @@ module.exports = app => {
           .json({ error: 'NOT_FOUND' })
       log.info(`Place ${place.name} deleted`)
       await place.destroy()
-      fs.unlinkSync(path.join(__dirname, '../../../..', place.image))
       const places = await Place.findAll({ where: { visible: 1 } })
       app.locals.io.emit('places', places)
       return res

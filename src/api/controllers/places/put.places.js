@@ -37,18 +37,8 @@ module.exports = app => {
     const { Place } = app.locals.models
     try {
       let place = await Place.findByPk(req.params.id)
-      const files = fs.readdirSync(path.join(__dirname, '../../../../temp'))
-      let file = files.find(f => f.indexOf(req.body.image) !== -1)
-      if (file) {
-        fs.unlinkSync(path.join(__dirname, '../../../..', place.image))
-        const oldfile = path.join(__dirname, '../../../../temp', file)
-        const newfile = path.join(__dirname, '../../../../images', file)
-        fs.copyFileSync(oldfile, newfile)
-        fs.unlinkSync(oldfile)
-        await place.update({ ...req.body, image: '/images/' + file })
-      } else {
-        await place.update(req.body)
-      }
+      await place.update(req.body)
+
       const places = await Place.findAll({ where: { visible: 1 } })
       app.locals.io.emit('places', places)
 

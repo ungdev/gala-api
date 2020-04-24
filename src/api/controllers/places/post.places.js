@@ -10,8 +10,8 @@ const fs = require('fs')
 module.exports = app => {
   app.post('/places', [
     check('name')
-      .isString()
-      .exists(),
+      .exists()
+      .isString(),
     check('start')
       .exists()
       .isString(),
@@ -33,17 +33,7 @@ module.exports = app => {
   app.post('/places', async (req, res) => {
     const { Place } = app.locals.models
     try {
-      const files = fs.readdirSync(path.join(__dirname, '../../../../temp'))
-      let file = files.find(f => f.indexOf(req.body.image) !== -1)
-      const oldfile = path.join(__dirname, '../../../../temp', file)
-      const newfile = path.join(__dirname, '../../../../images', file)
-      fs.copyFileSync(oldfile, newfile)
-      fs.unlinkSync(oldfile)
-
-      let place = await Place.create({
-        ...req.body,
-        image: '/images/' + file
-      })
+      let place = await Place.create(req.body)
       const places = await Place.findAll({ where: { visible: 1 } })
       app.locals.io.emit('places', places)
       log.info(`Place ${place.name} created`)
