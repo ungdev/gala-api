@@ -21,7 +21,7 @@ module.exports = app => {
     check('image')
       .exists()
       .isString(),
-    check('place')
+    check('placeId')
       .optional()
       .isString(),
     check('description')
@@ -58,8 +58,8 @@ module.exports = app => {
         const partner = await Partner.findByPk(req.body.partner)
         if (partner) await event.setPartner(partner)
       }
-      if (req.body.place) {
-        const place = await Place.findByPk(req.body.place)
+      if (req.body.placeId) {
+        const place = await Place.findByPk(req.body.placeId)
         if (place) await event.setPlace(place)
       }
       const events = await Event.findAll({ where: { visible: 1 } })

@@ -3,7 +3,6 @@ const log = require('../../utils/log')(module)
 const isAuth = require('../../middlewares/isAuth')
 const isAdmin = require('../../middlewares/isAdmin')
 const path = require('path')
-const fs = require('fs')
 
 module.exports = app => {
   app.delete('/places/:id', [
@@ -21,8 +20,6 @@ module.exports = app => {
           .json({ error: 'NOT_FOUND' })
       log.info(`Place ${place.name} deleted`)
       await place.destroy()
-      const places = await Place.findAll({ where: { visible: 1 } })
-      app.locals.io.emit('places', places)
       return res
         .status(200)
         .end()

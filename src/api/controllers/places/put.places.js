@@ -4,8 +4,6 @@ const validateBody = require('../../middlewares/validateBody')
 const log = require('../../utils/log')(module)
 const isAuth = require('../../middlewares/isAuth')
 const isAdmin = require('../../middlewares/isAdmin')
-const path = require('path')
-const fs = require('fs')
 
 module.exports = app => {
   app.put('/places/:id', [
@@ -20,7 +18,7 @@ module.exports = app => {
       .isString(),
     check('placeType')
       .exists()
-      .isString(),
+      .isIn(['EAT', 'stage', 'food', 'rechargement', 'prevention', 'entry', 'animation', 'aidStation', 'cloakroom', 'other']),
     check('description')
       .optional()
       .isString(),
@@ -38,10 +36,6 @@ module.exports = app => {
     try {
       let place = await Place.findByPk(req.params.id)
       await place.update(req.body)
-
-      const places = await Place.findAll({ where: { visible: 1 } })
-      app.locals.io.emit('places', places)
-
       log.info(`Place ${place.name} modified`)
       return res
         .status(200)

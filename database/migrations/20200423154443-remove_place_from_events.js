@@ -8,7 +8,8 @@ module.exports = {
   down: (queryInterface, DataTypes) => {
     return queryInterface.addColumn("Events", "place", {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      defaultValue: ""
     });
   }
 };
