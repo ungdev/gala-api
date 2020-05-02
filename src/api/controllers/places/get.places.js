@@ -3,41 +3,39 @@ const isAuth = require('../../middlewares/isAuth')
 const isAdmin = require('../../middlewares/isAdmin')
 
 module.exports = app => {
-  app.get('/events', async (req, res) => {
-    const { Event, Place } = app.locals.models
+  app.get('/places', async (req, res) => {
+    const { Place } = req.app.locals.models
     try {
-      const events = await Event.findAll({
-        include: [Place],
+      const places = await Place.findAll({
         where: {
           visible: true
         },
         order: [
-          ['start', 'ASC']
+          ['name', 'ASC']
         ]
       })
 
       return res
         .status(200)
-        .json(events)
+        .json(places)
     } catch (err) {
       errorHandler(err, res)
     }
   })
 
-  app.get('/events/all', [isAuth('events-get-all'), isAdmin('events-get-all')])
-  app.get('/events/all', async (req, res) => {
-    const { Event, Place } = app.locals.models
+  app.get('/places/all', [isAuth('places-get-all'), isAdmin('places-get-all')])
+  app.get('/places/all', async (req, res) => {
+    const { Place } = req.app.locals.models
     try {
-      const events = await Event.findAll({
-        include: [Place],
+      const places = await Place.findAll({
         order: [
-          ['start', 'ASC']
+          ['name', 'ASC']
         ]
       })
 
       return res
         .status(200)
-        .json(events)
+        .json(places)
     } catch (err) {
       errorHandler(err, res)
     }
