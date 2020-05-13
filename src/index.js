@@ -13,7 +13,7 @@ module.exports = async function(app, express) {
   const server = http.Server(app)
   const io = socketio(server)
 
-  main(app, io)
+  main(app, io, express)
   app.locals.app = app
   app.locals.server = server
   app.locals.db = sequelize

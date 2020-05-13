@@ -17,10 +17,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false
     },
-    place: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     image: {
       type: DataTypes.STRING,
       allowNull: false
@@ -37,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
   Event.associate = models => {
     Event.belongsTo(models.Artist);
     models.Artist.hasMany(Event);
+  };
+  Event.associate = models => {
+    Event.belongsTo(models.Place);
+    models.Place.hasMany(Event);
   };
   return Event;
 };

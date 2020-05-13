@@ -21,7 +21,7 @@ module.exports = app => {
     check('image')
       .exists()
       .isString(),
-    check('place')
+    check('placeId')
       .optional()
       .isString(),
     check('description')
@@ -40,7 +40,7 @@ module.exports = app => {
   ])
   app.put('/events/:id', [isAuth('events-modify'), isAdmin('events-modify')])
   app.put('/events/:id', async (req, res) => {
-    const { Event, Artist, Partner } = app.locals.models
+    const { Event, Artist, Partner, Place } = app.locals.models
     try {
       let event = await Event.findByPk(req.params.id)
       const files = fs.readdirSync(path.join(__dirname, '../../../../temp'))
@@ -63,6 +63,10 @@ module.exports = app => {
       if (req.body.partner) {
         const partner = await Partner.findByPk(req.body.partner)
         if (partner) await event.setPartner(partner)
+      }
+      if (req.body.placeId) {
+        const place = await Place.findByPk(req.body.placeId)
+        if (place) await event.setPlace(place)
       }
       const events = await Event.findAll({ where: { visible: 1 } })
       app.locals.io.emit('events', events)

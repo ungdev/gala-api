@@ -16,7 +16,7 @@ module.exports = loggedModule => {
     label: path
   })
 
-  const logger = new winston.Logger({
+  const logger = winston.createLogger({
     transports: [consoleTransport]
   })
 
