@@ -1,0 +1,16 @@
+FROM node:16
+
+ENV NODE_ENV=production
+WORKDIR /srv/app
+
+RUN chown node:node .
+
+USER node
+
+COPY --chown=node:node package.json yarn.lock ./
+
+RUN yarn --frozen-lockfile --production
+
+COPY --chown=node:node ./ ./
+
+CMD yarn start
