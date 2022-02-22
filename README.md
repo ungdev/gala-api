@@ -2,6 +2,8 @@
 
 API pour la gestion des données du gala
 
+Avant toute chose, lisez la documentation sur [Read the Docs](https://cassiopee.rtfd.io)
+
 ## Requirements
 
 * [Node.js](https://nodejs.org/)
