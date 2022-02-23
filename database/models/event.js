@@ -1,40 +1,38 @@
 module.exports = (sequelize, DataTypes) => {
-  const Event = sequelize.define("Event", {
+  const Event = sequelize.define('Event', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
-      primaryKey: true
+      primaryKey: true,
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     start: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
     },
     end: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: true,
     },
     visible: {
       type: DataTypes.BOOLEAN,
-      defaultValue: true
-    }
+      defaultValue: true,
+    },
   });
-  Event.associate = models => {
+  Event.associate = (models) => {
     Event.belongsTo(models.Artist);
     models.Artist.hasMany(Event);
-  };
-  Event.associate = models => {
     Event.belongsTo(models.Place);
     models.Place.hasMany(Event);
   };
