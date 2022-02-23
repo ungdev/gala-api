@@ -3,7 +3,7 @@
 Salut aux nouveaux qui viennent de rejoindre le dev !
 Vous êtes nombreux, aussi, vous allez avoir besoin d’autonomie pour progresser parce que je vais pas pouvoir tenir 7 personnes par la main. Je vais donc vous donner des ressources à consulter en fonction de votre niveau et en fonction de votre objectif.
 
-Cette documentation a été conçu dans un premier temps dans le but de développer le site de l'UTT Arena, certaines informations dans cette documentation ne vous seront donc pas nécessaire afin de préparer le site pour le gala. Essayez de faire le tri dans les informations que vous pourrez trouver à travers cette documentation, tout ne vous sera pas utile pour le moment.
+**Cette documentation a été conçu dans un premier temps dans le but de développer le site de l'UTT Arena**, certaines informations dans cette documentation ne vous seront donc pas nécessaire afin de préparer le site pour le gala. Essayez de faire le tri dans les informations que vous pourrez trouver à travers cette documentation, tout ne vous sera pas utile pour le moment.
 
 Le paragraphe qui suit est important :
 
@@ -64,12 +64,6 @@ Voici donc les langages / framework / autres à connaître / maîtriser pour êt
 - Pas besoin de savoir construire vos propres hooks
 
 - Vous apprendrez le reste sur le tas
-
-### Next JS
-
-- Pas très important, faut juste comprendre comment sont organisées les pages mais oklm, on vous expliquera
-
-- Pour les plus deter, [ce sera pas perdu](https://nextjs.org/learn/basics/create-nextjs-app?utm_source=next-site&utm_medium=homepage-cta&utm_campaign=next-website)
 
 ## Pour l’API :
 
